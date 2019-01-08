@@ -11,9 +11,7 @@ Features:
 - code written in Javascript
 - cross-platform (macOS, Windows)
 - Property Inspector contains all supported HTML-elements ready for copy/paste.
-- index_pi.js includes some simple scripts to add interactivity to the PI, and shows how you *could* pass data to the plugin.
-
-![](../images/pisamples.png)
+- index_pi.js includes some simple scripts to add interactivity to the PI, and shows how you could pass data to the plugin.
 
 
 # Installation
@@ -23,4 +21,4 @@ In the Release folder, you can find the file `com.elgato.pisamples.streamDeckPlu
 
 ##  Source code
 
-The source code [can be downloaded here](pisamples.zip).
+The Sources folder contains the source code of the plugin.
