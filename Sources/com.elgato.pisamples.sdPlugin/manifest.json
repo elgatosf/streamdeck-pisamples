@@ -1,0 +1,47 @@
+{
+  "Actions": [
+    {
+      "Icon": "action/images/actionimage", 
+      "Name": "PI Samples", 
+      "States": [
+        {
+          "Image": "action/images/image"
+        }
+      ], 
+      "Tooltip": "PI Samples", 
+      "UUID": "com.elgato.pisamples.action"
+    }
+  ], 
+  "Author": "Elgato", 
+  "CodePath": "index.html", 
+  "PropertyInspectorPath": "index_pi.html", 
+  "Description": "Property Inspector Samples.", 
+  "Name": "PISamples", 
+  "Icon": "images/default", 
+  "URL": "https://www.elgato.com/gaming/stream-deck", 
+  "Version": "1.2",
+  "OS": [
+    {
+        "Platform": "mac", 
+        "MinimumVersion" : "10.11"
+    },
+    {
+        "Platform": "windows", 
+        "MinimumVersion" : "10"
+    }
+  ],
+  "ApplicationsToMonitor": {
+    "mac": [ 
+      "com.apple.mail",
+      "com.apple.Safari",
+      "com.apple.systempreferences",
+      "com.apple.ActivityMonitor"
+    ],
+    "windows": [
+      "chrome.exe",
+      "Code.exe",
+      "MicrosoftEdge.exe",
+      "iexplore.exe"
+    ]
+  }
+}
