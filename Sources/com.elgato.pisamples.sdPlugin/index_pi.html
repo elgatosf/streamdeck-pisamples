@@ -11,36 +11,35 @@
         <!--link rel="stylesheet" 
               media="screen and (max-width: 1025px)" 
               href="css/local.css" -->
-         <link rel="stylesheet" href="css/local.css">
 
     </head>
 
     <body>
-        <div class="sdpi-wrapper localbody hiddenx">
-            
+        <div class="sdpi-wrapper">
+
             <div class="sdpi-item" id="your_name">
                 <div class="sdpi-item-label">Name</div> 
-                <input class="sdpi-item-value" type="text" value="">
+                <input class="sdpi-item-value" type="text" id="mynameinput" value="">
             </div>
 
             <div class="sdpi-item" id="your_name_required" title="This field lets you enter an IP-Adress. The little exclamation mark changes to a checkmark, if the condition is met (e.g. you entered an IP-address.).">
                 <div class="sdpi-item-label">IP-Address</div> 
-                <input class="sdpi-item-value" value="" placeholder="e.g. 192.168.61.1" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">
+                <input class="sdpi-item-value" id="myrequirednameinput" value="" placeholder="e.g. 192.168.61.1" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">
             </div>
             
             <div class="sdpi-item" id="your_password">
                 <div class="sdpi-item-label">Password</div> 
-                <input type="password" class="sdpi-item-value" value="" placeholder="Enter your password">
+                <input type="password" id="mypassword" class="sdpi-item-value" value="" placeholder="Enter your password">
             </div>
 
             <div class="sdpi-item" id="your_email">
                 <div class="sdpi-item-label">Email</div> 
-                <input type="email" class="sdpi-item-value" value="" placeholder="Enter your email-address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+                <input type="email" class="sdpi-item-value" id="myemail" value="" placeholder="Enter your email-address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
             </div>
 
             <div class="sdpi-item" id="anumber">
                 <div class="sdpi-item-label">Number</div>
-                <input class="sdpi-item-value" inputmode="numeric" pattern="[0-9]*" type="number" name="creditcard">
+                <input class="sdpi-item-value" id="mynumber" inputmode="numeric" pattern="[0-9]*" type="number" name="creditcard">
             </div>
 
             <div class="sdpi-heading">TEXTAREAS</div>
@@ -56,7 +55,7 @@
             <div type="textarea" class="sdpi-item" id="message_only">
                 <div class="sdpi-item-label">Message only</div>
                 <span class="sdpi-item-value textarea">
-                    <textarea type="textarea"></textarea>
+                    <textarea type="textarea" id="textarea_message_only"></textarea>
                 </span>
             </div>
 
@@ -125,6 +124,15 @@
             </div>
 
             <div class="sdpi-heading">CHECKBOXES & RADIO</div>
+            <div type="checkbox" class="sdpi-item" id="single-check">
+                <div class="sdpi-item-label">Light</div>
+                <div class="sdpi-item-value">
+                    <div class="sdpi-item-child">
+                        <input id="singlechk" type="checkbox" value="on">
+                        <label for="singlechk" class="sdpi-item-label"><span></span>on</label>
+                    </div>
+                </div>
+            </div>
 
             <div type="checkbox" class="sdpi-item" id="multi-items">
                 <div class="sdpi-item-label">Select day</div>

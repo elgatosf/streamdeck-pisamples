@@ -12,6 +12,7 @@
       "UUID": "com.elgato.pisamples.action"
     }
   ], 
+  "SDKVersion": 2,
   "Author": "Elgato", 
   "CodePath": "index.html", 
   "PropertyInspectorPath": "index_pi.html", 
@@ -43,5 +44,9 @@
       "MicrosoftEdge.exe",
       "iexplore.exe"
     ]
-  }
+  },
+  "Software": 
+    {
+        "MinimumVersion" : "4.1"
+    }
 }

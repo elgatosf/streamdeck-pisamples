@@ -5,7 +5,7 @@ var websocket = null,
     contextArray = [],
     DestinationEnum = Object.freeze({ 'HARDWARE_AND_SOFTWARE': 0, 'HARDWARE_ONLY': 1, 'SOFTWARE_ONLY': 2 });
 
-function connectSocket (
+function connectElgatoStreamDeckSocket (
     inPort,
     inUUID,
     inMessageType,
@@ -70,24 +70,8 @@ function connectSocket (
                 }
 
             } else {
-                /** dispatch message for V1 */
-                const aEvt = !jsonObj.hasOwnProperty('action') ? jsonObj.event : jsonObj['action'] + '.' + jsonObj['event'];
-                if (MActions.hasOwnProperty(aEvt)) {
-                    MActions[aEvt](jsonObj);
-                }
-
-                /** dispatch message for V2 */
-                /* we could also use this (although a bit hacky), to keep the original plugin-structure */
-                if (jsonObj.hasOwnProperty('action')) {
-                    var actn = jsonObj.action.split('.').splice(-1)[0];
-                    console.log('actn:', actn);
-                    if (window[actn].hasOwnProperty(jsonObj.event)) {
-                        window[actn][jsonObj.event](jsonObj);
-                    }
-                }
-
-                /** dispatch message for V3 */
-                /* even more hacky, but works for multi-actions */
+              
+                /** dispatch message */
                 let bEvt;
                 if (jsonObj['event'] && jsonObj['event'] === 'willAppear') {
                     bEvt = jsonObj['event'];
@@ -95,8 +79,8 @@ function connectSocket (
                     bEvt = !jsonObj.hasOwnProperty('action') ? jsonObj.event : jsonObj.event + jsonObj['context'];
                 }
 
-                if (actionV3.hasOwnProperty(bEvt)) {
-                    actionV3[bEvt](jsonObj);
+                if (action.hasOwnProperty(bEvt)) {
+                    action[bEvt](jsonObj);
                 }
             }
         } catch (error) {
@@ -105,89 +89,34 @@ function connectSocket (
     };
 }
 
-/** Here are a bunch of experiments how to even more streamline communication with the PI */
-
 /**
- * V1 define the actions in an object
- * Will not work in multiactions, but can be extended as in V3
- * */
-
-MActions['com.elgato.pisamples.action.willAppear'] = function (jsn) {
-    console.log('**V1** MActions.WILLAPPEAR', jsn.context);
-};
-
-MActions['com.elgato.pisamples.action.willDisappear'] = function (jsn) {
-    console.log('**V1** MActions.WILLDISAPPEAR ', jsn.context);
-};
-
-MActions['com.elgato.pisamples.action.keyUp'] = function (jsn) {
-    console.log('**V1** MActions.KEYUP ', jsn.context);
-};
-
-MActions['com.elgato.pisamples.action.keyDown'] = function (jsn) {
-    console.log('**V1** MActions.KEYDOWN ', jsn.context);
-};
-
-MActions['com.elgato.pisamples.action.sendToPlugin'] = function (jsn) {
-    console.log('**V1** MActions.SENDTOPLUGIN:', jsn.context, jsn);
-    console.log('%c%s', 'color: white; background: darkgreen; font-size: 12px;', `**V1** PI SENDTOPLUGIN for ${jsn.context}`);
-};
-
-/**
- * V2 keep old plugin structure
- * Will not work in multi-actions (without caching the context)
- * */
+ * We use a contextArray to push our context. You can use a cache to keep some
+ * data private to the plugin or to update a key regularily without waiting
+ * for an event.
+ * This will also work with multi-actions stored in different contexts
+*/
 
 var action = {
 
     willAppear: function (jsn) {
-        console.log('**V2** action.WILLAPPEAR', jsn.context);
-    },
-
-    willDisappear: function (jsn) {
-        console.log('**V2** action.WILLDISAPPEAR', jsn.context);
-    },
-
-    keyDown: function (jsn) {
-        console.log('**V2** action.KEYDOWN', jsn.context);
-    },
-
-    keyUp: function (jsn) {
-        console.log('**V2** action.KEYUP', jsn.context);
-    },
-
-    sendToPlugin: function (jsn) {
-        console.log('**V2** action.SENDTOPLUGIN', jsn.context, jsn);
-        console.log('%c%s', 'color: white; background: pink; font-size: 12px;', `**V2** PI SENDTOPLUGIN for ${jsn.context}`);
-    }
-
-};
-
-/**
- * V3 restrict to context
- * This will also work with multi-actions stored in different contexts
-*/
-
-var actionV3 = {
-
-    willAppear: function (jsn) {
-        console.log('**V3** actionV3.WILLAPPEAR', jsn.context);
+        console.log('**** action.WILLAPPEAR', jsn.context);
         if (!contextArray.includes(jsn.context)) {
             contextArray.push(jsn.context);
         }
 
-        actionV3['keyDown' + jsn.context] = function (jsn) {
-            console.log('**V3** actionV3.KEYDOWN', jsn.context);
+        action['keyDown' + jsn.context] = function (jsn) {
+            console.log('**** action.KEYDOWN', jsn.context);
         };
 
-        actionV3['keyUp' + jsn.context] = function (jsn) {
-            console.log('**V3** actionV3.KEYUP', jsn.context);
+        action['keyUp' + jsn.context] = function (jsn) {
+            console.log('**** action.KEYUP', jsn.context);
         };
 
-        actionV3['sendToPlugin' + jsn.context] = function (jsn) {
-            console.log('**V3** actionV3.SENDTOPLUGIN', jsn.context, jsn);
+        action['sendToPlugin' + jsn.context] = function (jsn) {
+            console.log('**** action.SENDTOPLUGIN', jsn.context, jsn);
             if (jsn.hasOwnProperty('payload')) {
                 const pl = jsn.payload;
+
                 if (pl.hasOwnProperty('property_inspector')) {
                     const pi = pl.property_inspector;
                     console.log('%c%s', 'font-style: bold; color: white; background: blue; font-size: 15px;', `PI-event for ${jsn.context}:${pi}`);
@@ -222,8 +151,8 @@ var actionV3 = {
             }
         };
 
-        actionV3['willDisappear' + jsn.context] = function (jsn) {
-            console.log('**V3** action.WILLDISAPPEAR', jsn.context, contextArray);
+        action['willDisappear' + jsn.context] = function (jsn) {
+            console.log('**** action.WILLDISAPPEAR', jsn.context, contextArray);
             contextArray = contextArray.filter(item => item !== jsn.context);
             console.log(contextArray);
         };
