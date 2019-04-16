@@ -15,7 +15,7 @@ function connectElgatoStreamDeckSocket (inPort, inUUID, inRegisterEvent, inInfo,
     // in case of the inActionInfo, we must parse it into JSON first
     actionInfo = JSON.parse(inActionInfo); // cache the info
     inInfo = JSON.parse(inInfo);
-    websocket = new WebSocket('ws://localhost:' + inPort);
+    websocket = new WebSocket('ws://127.0.0.1:' + inPort);
 
     /** Since the PI doesn't have access to your OS native settings
      * Stream Deck sends some color settings to PI
