@@ -56,6 +56,18 @@ function connectElgatoStreamDeckSocket (inPort, inUUID, inRegisterEvent, inInfo,
     };
 }
 
+window.addEventListener('message',function(ev) {
+    console.log('External window received message:  ', ev.data, typeof ev.data);
+    if (ev.data === 'initPropertyInspector') {
+        initPropertyInspector(5);
+    }
+},false);
+
+function openMeExternal() {
+    window.xtWindow = window.open('index_pi.html', "PI Samples");
+    setTimeout(() => window.xtWindow.postMessage('initPropertyInspector', '*'), 1500);
+}
+
 function initPropertyInspector(initDelay) {
     prepareDOMElements(document);
     demoCanvas();
@@ -64,6 +76,7 @@ function initPropertyInspector(initDelay) {
      * inject the carousel */
     setTimeout(function () {
         initCarousel();
+        initToolTips();
     }, initDelay || 100);
 }
 
@@ -98,7 +111,7 @@ window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
     // since 4.1 this is no longer needed, as the plugin will receive a notification
     // right before the Property Inspector goes away
-    // sendValueToPlugin('propertyInspectorWillDisappear', 'property_inspector');
+    sendValueToPlugin('propertyInspectorWillDisappear', 'property_inspector');
     // Don't set a returnValue to the event, otherwise Chromium with throw an error.  // e.returnValue = '';
 });
 
@@ -197,7 +210,7 @@ function prepareDOMElements(baseElement) {
         }
     });
 
-    baseElement.querySelectorAll('[data-open-url').forEach(e => {
+    baseElement.querySelectorAll('[data-open-url]').forEach(e => {
         const value = e.getAttribute('data-open-url');
         if (value) {
             e.onclick = () => {
@@ -626,3 +639,110 @@ function initCarousel () {
         });
     });
 };
+
+
+function drag_start(event) {
+    /**
+     * In PI Samples the title-attribute is extracted to css and set
+     * to an absolute position (at the bottom of the PI).
+     * Since it is still part of the HTML-node, we just remove the title
+     * attribute (otherwise the node will get extended so it includes the title
+     * node too.)
+     */
+    // event.target.removeAttribute('title');
+    event.target.removeAttribute('draggable');
+    event.dataTransfer.effectAllowed = "all";
+    var dataList = event.dataTransfer.items;
+    /**
+     * the following helper just formats the HTML, so the output
+     * looks a bit nicer.
+     */
+    const prettifiedHTMLString = prettifyHTML(event.target.outerHTML);
+
+    /**
+     * Finally add the prettified string to the dragObjs data-container:
+     */
+    dataList.add(prettifiedHTMLString, "text/plain");
+
+    } 
+
+
+function dragTest() {
+    const els = document.querySelectorAll('.sdpi-item');
+    Array.from(els).forEach((e, i) => {
+        //subel.style.display = obj.value.length ? 'flex' : 'none';
+        e.addEventListener("dragstart", drag_start, false);
+        e.setAttribute('draggable', "true");
+        // e.ondragstart="drag_start(event)";
+    });
+    console.log("done");
+
+}
+
+function prettifyHTML(htmlStr) {
+    const div = document.createElement('div');
+    div.innerHTML = htmlStr.trim();
+    return prettify(div, 0).innerHTML;
+}
+
+function prettify(node, level) {
+
+    const spacesBefore = new Array(level++ + 1).join('  ');
+    const spacesAfter  = new Array(level - 1).join('  ');
+    let textNode;
+
+    Object.values(node.children).map(e => {
+        textNode = document.createTextNode('\n' + spacesBefore);
+        node.insertBefore(textNode, e);
+        prettify(e, level);
+        if (node.lastElementChild == e) {
+            textNode = document.createTextNode('\n' + spacesAfter);
+            node.appendChild(textNode);
+        }
+    });
+
+    return node;
+}
+
+function rangeToPercent(value, min, max) {
+    return ((value - min) / (max - min));
+};
+function initToolTips() {
+    console.log("INITTOOLTIPS")
+    const tooltip = document.querySelector('.sdpi-info-label');
+    const arrElements = document.querySelectorAll('.floating-tooltip');
+    arrElements.forEach((e,i) => {
+        console.log("ELEMENTS:", e);
+        initToolTip(e, tooltip)
+    })
+}
+
+function initToolTip(element, tooltip) {
+    
+    const tw = tooltip.getBoundingClientRect().width;
+    const suffix = element.getAttribute('data-suffix') || '';
+
+    const fn = () => {
+        const elementRect = element.getBoundingClientRect();
+        const w = elementRect.width - tw / 2;
+      const percnt = rangeToPercent(element.value, element.min, element.max);
+      tooltip.textContent = suffix != "" ? `${element.value} ${suffix}` : String(element.value);
+        tooltip.style.left = `${elementRect.left + Math.round(w * percnt) - tw / 4}px`;
+        tooltip.style.top = `${elementRect.top - 32}px`;
+    };
+
+    if (element) {
+        element.addEventListener('mouseenter', function() {
+            tooltip.classList.remove('hidden');
+            tooltip.classList.add('shown');
+            fn();
+        }, false);
+
+        element.addEventListener('mouseout', function() {
+            tooltip.classList.remove('shown');
+            tooltip.classList.add('hidden');
+            fn();
+        }, false);
+        element.addEventListener('input', fn, false);
+    }
+}

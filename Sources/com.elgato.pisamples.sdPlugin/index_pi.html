@@ -81,7 +81,7 @@
 
             <div class="sdpi-item" id="only_a_button">
                 <div class="sdpi-item-label">Button</div> 
-                <button class="sdpi-item-value" value="Click Me only">Click Me</button>
+                <button onclick="openMeExternal()" class="sdpi-item-value" value="Click Me only">Click Me</button>
             </div>
 
             <div class="sdpi-item" id="tiny_button">
@@ -196,7 +196,7 @@
             <div type="range" class="sdpi-item" id="myfirstrange">
                 <div class="sdpi-item-label">Range</div>
                 <div class="sdpi-item-value">
-                    <input type="range" min="0" max="100" value=17>
+                    <input class="floating-tooltip" data-suffix="%" type="range" min="0" max="100" value=17>
                 </div>
             </div>
 
@@ -204,7 +204,7 @@
                 <div class="sdpi-item-label">Range (with label)</div>
                 <div class="sdpi-item-value">
                     <span class="clickable" value=0>0</span>
-                    <input type="range" min="0" max="100" value=74>
+                    <input class="floating-tooltip" type="range" min="0" max="100" value=74>
                     <span class="clickable" value="100">100</span>
                 </div>
             </div>
@@ -213,7 +213,7 @@
 
            <div class="sdpi-item" type="progress" id="meter">
                 <div class="sdpi-item-label">Meter</div>
-                <meter class="sdpi-item-value" value="0.6"></meter>
+                <meter class="floating-tooltip" class="sdpi-item-value" value="0.6"></meter>
             </div>
 
             <hr>
@@ -317,6 +317,16 @@
                     <li>Bread</li>
                     <li>Chocolate</li>
                     <li>More chocolate</li>
+                </ul>
+            </div>
+
+            <div type="list" class="sdpi-item list" id="unorderedListContainer">
+                <div class="sdpi-item-label">List (flex)</div> 
+                <ul class="sdpi-item-value two-items" id="unorderedList">
+                    <li><span>Milk</span><span>1 liter</span></li>
+                    <li><span>Bread</span><span>1 slice</span></li>
+                    <li><span>Chocolate</span><span>lots of</span></li>
+                    <li><span>More</span><span>things...</span></li>
                 </ul>
             </div>
 
@@ -534,6 +544,16 @@
 
             <div class="sdpi-heading">DETAILS</div>
 
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">Details</div>
+                <details class="sdpi-item-value">
+                    <summary>Wrapped Details</summary>
+                    <p>If you like to show details aligned with other controls, you can simply wrap the details-item into a regular 'sdpi-item-value'</p>
+                    <p>In this case, details are auto-aligned with the sdpi-item-value controls above.</p>
+                    <p>....</p>
+                </details>
+                </div>
+
              <details>
                 <summary>More Info</summary>
                 <p>These samples are provided by Elgato Systems 'as is'.</p>
@@ -588,6 +608,8 @@
 
 
         </div>
+        <div class="sdpi-info-label hidden" style="top: -1000;" value=""></div>
+
         <!-- <script src="echomd.js"></script> -->
         <script src="index_pi.js"></script>
 
