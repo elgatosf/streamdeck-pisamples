@@ -705,7 +705,7 @@ function prettify(node, level) {
 }
 
 function rangeToPercent(value, min, max) {
-    return ((value - min) / (max - min));
+    return (value / (max - min));
 };
 function initToolTips() {
     console.log("INITTOOLTIPS")
@@ -723,12 +723,12 @@ function initToolTip(element, tooltip) {
     const suffix = element.getAttribute('data-suffix') || '';
 
     const fn = () => {
-        const elementRect = element.getBoundingClientRect();
-        const w = elementRect.width - tw / 2;
+      const elementRect = element.getBoundingClientRect();
+      const w = elementRect.width - tw / 2;
       const percnt = rangeToPercent(element.value, element.min, element.max);
       tooltip.textContent = suffix != "" ? `${element.value} ${suffix}` : String(element.value);
-        tooltip.style.left = `${elementRect.left + Math.round(w * percnt) - tw / 4}px`;
-        tooltip.style.top = `${elementRect.top - 32}px`;
+      tooltip.style.left = `${elementRect.left + Math.round(w * percnt) - tw / 4}px`;
+      tooltip.style.top = `${elementRect.top - 32}px`;
     };
 
     if (element) {

@@ -643,6 +643,26 @@ details.message h1 {
   color: var(--sdpi-color);
 }
 
+.sdpi-bottom-bar {
+  display: flex;
+  align-self: right;
+  margin-left: auto;
+  position: fixed;
+  right: 17px;
+  bottom: 0px;
+  user-select: none;
+}
+
+.sdpi-bottom-bar.right {
+  right: 0px;
+}
+
+.sdpi-bottom-bar button {
+  min-height: 20px !important;
+  height: 20px !important;
+}
+
+
 .sdpi-more-info-button {
   display: flex;
   align-self: right;
