@@ -1,213 +1,223 @@
 <!DOCTYPE html>
-    <html>
+<html>
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
-        <meta name=apple-mobile-web-app-capable content=yes>
-        <meta name=apple-mobile-web-app-status-bar-style content=black>
-        <title>Property Inspector Samples PI</title>
-        <link rel="stylesheet" href="css/sdpi.css">
-        <!--link rel="stylesheet" 
+<head>
+    <meta charset="utf-8" />
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
+    <meta name=apple-mobile-web-app-capable content=yes>
+    <meta name=apple-mobile-web-app-status-bar-style content=black>
+    <title>Property Inspector Samples PI</title>
+    <link rel="stylesheet" href="css/sdpi.css">
+    <script src="contextmenu.js"></script>
+    <!--link rel="stylesheet" 
               media="screen and (max-width: 1025px)" 
               href="css/local.css" -->
 
-    </head>
+    <style>
+        /* COLOR/BRIGHTNESS sliders */
+        /* overwrite styles of color and greyscale sliders to fit your needs */
+        input[type="range"].overwritten-by-css::-webkit-slider-runnable-track {
+            background-color: yellow;
+            background-image: linear-gradient(to right, blue, rgba(255, 0, 0, 0));
+        }
+    </style>
 
-    <body>
-        <div class="sdpi-wrapper">
+</head>
 
-            <div class="sdpi-item" id="your_name">
-                <div class="sdpi-item-label">Name</div> 
-                <input class="sdpi-item-value" type="text" id="mynameinput" value="">
+<body>
+    <div class="sdpi-wrapper">
+
+        <div class="sdpi-item" id="your_name">
+            <div class="sdpi-item-label">Name</div>
+            <input class="sdpi-item-value" type="text" id="mynameinput" value="">
+        </div>
+
+        <div class="sdpi-item" id="your_name_required" title="This field lets you enter an IP-Adress. The little exclamation mark changes to a checkmark, if the condition is met (e.g. you entered an IP-address.).">
+            <div class="sdpi-item-label">IP-Address</div>
+            <input class="sdpi-item-value" id="myrequirednameinput" value="" placeholder="e.g. 192.168.61.1" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">
+        </div>
+
+        <div class="sdpi-item" id="your_password">
+            <div class="sdpi-item-label">Password</div>
+            <input type="password" id="mypassword" class="sdpi-item-value" value="" placeholder="Enter your password">
+        </div>
+
+        <div class="sdpi-item" id="your_email">
+            <div class="sdpi-item-label">Email</div>
+            <input type="email" class="sdpi-item-value" id="myemail" value="" placeholder="Enter your email-address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+        </div>
+
+        <div class="sdpi-item" id="anumber">
+            <div class="sdpi-item-label">Number</div>
+            <input class="sdpi-item-value" id="mynumber" inputmode="numeric" pattern="[0-9]*" type="number" name="creditcard">
+        </div>
+
+        <div class="sdpi-heading">TEXTAREAS</div>
+
+        <div type="textarea" class="sdpi-item" id="messagegroup_message">
+            <div class="sdpi-item-label up20">Message with <mark>info-box</mark></div>
+            <div class="sdpi-item-value textarea">
+                <textarea type="textarea" maxlength="50" id="textarea12"></textarea>
+                <label for="textarea12">0/50</label>
             </div>
+        </div>
 
-            <div class="sdpi-item" id="your_name_required" title="This field lets you enter an IP-Adress. The little exclamation mark changes to a checkmark, if the condition is met (e.g. you entered an IP-address.).">
-                <div class="sdpi-item-label">IP-Address</div> 
-                <input class="sdpi-item-value" id="myrequirednameinput" value="" placeholder="e.g. 192.168.61.1" required pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">
-            </div>
-            
-            <div class="sdpi-item" id="your_password">
-                <div class="sdpi-item-label">Password</div> 
-                <input type="password" id="mypassword" class="sdpi-item-value" value="" placeholder="Enter your password">
-            </div>
+        <div type="textarea" class="sdpi-item" id="message_only">
+            <div class="sdpi-item-label">Message only</div>
+            <span class="sdpi-item-value textarea">
+                <textarea type="textarea" id="textarea_message_only"></textarea>
+            </span>
+        </div>
 
-            <div class="sdpi-item" id="your_email">
-                <div class="sdpi-item-label">Email</div> 
-                <input type="email" class="sdpi-item-value" id="myemail" value="" placeholder="Enter your email-address" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
-            </div>
+        <div class="sdpi-heading">CANVAS</div>
 
-            <div class="sdpi-item" id="anumber">
-                <div class="sdpi-item-label">Number</div>
-                <input class="sdpi-item-value" id="mynumber" inputmode="numeric" pattern="[0-9]*" type="number" name="creditcard">
-            </div>
+        <div class="sdpi-item" type="canvas" id="your_canvas">
+            <div class="sdpi-item-label">Canvas</div>
+            <canvas class="sdpi-item-value" width="144" height="144" type="canvas" value=""></canvas>
+        </div>
+        <div class="sdpi-item alignTop">
+            <div class="sdpi-item-label empty"></div>
+            <details open class="noInnerMargins">
+                <summary>Info</summary>
+                <p>To draw with the mouse, press/hold the alt key.</p>
+                <p>To refresh the canvas, press shift and click.</p>
+            </details>
+        </div>
 
-            <div class="sdpi-heading">TEXTAREAS</div>
+        <div class="sdpi-heading runningAppsContainer">MONITORED APPS</div>
+        <div id="runningAppsContainer"></div>
 
-            <div type="textarea" class="sdpi-item" id="messagegroup_message">
-                <div class="sdpi-item-label up20">Message with <mark>info-box</mark></div>
-                <div class="sdpi-item-value textarea">
-                    <textarea type="textarea" maxlength="50" id="textarea12"></textarea>
-                    <label for="textarea12" >0/50</label>
-                </div>
-            </div>
+        <div class="sdpi-heading">BUTTONS</div>
 
-            <div type="textarea" class="sdpi-item" id="message_only">
-                <div class="sdpi-item-label">Message only</div>
-                <span class="sdpi-item-value textarea">
-                    <textarea type="textarea" id="textarea_message_only"></textarea>
-                </span>
-            </div>
+        <div class="sdpi-item" id="only_a_button">
+            <div class="sdpi-item-label">Button</div>
+            <button onclick="openMeExternal()" class="sdpi-item-value" value="Click Me only">Click Me</button>
+        </div>
 
-            <div class="sdpi-heading">CANVAS</div>
+        <div class="sdpi-item" id="tiny_button">
+            <div class="sdpi-item-label">Name</div>
+            <button class="sdpi-item-value max20" value="Click Me max20">Click Me</button>
+        </div>
 
-            <div class="sdpi-item" type="canvas" id="your_canvas">
-                <div class="sdpi-item-label">Canvas</div> 
-                <canvas class="sdpi-item-value" width="144" height="144" type="canvas" value=""></canvas>
-            </div>
-            <div class="sdpi-item alignTop" >
-                <div class="sdpi-item-label empty"></div> 
-                <details open class="noInnerMargins">
-                    <summary>Info</summary>
-                    <p>To draw with the mouse, press/hold the alt key.</p>
-                    <p>To refresh the canvas, press shift and click.</p>
-                </details>
-            </div>
+        <div class="sdpi-item" id="2buttons">
+            <div class="sdpi-item-label">2 Buttons</div>
+            <button class="sdpi-item-value" value="ClickMe">Click Me</button>
+            <button class="sdpi-item-value" value="OrMe">Or Me</button>
+        </div>
 
-            <div class="sdpi-heading runningAppsContainer">MONITORED APPS</div>
-            <div id="runningAppsContainer"></div>
+        <div class="sdpi-heading">SELECTS</div>
 
-            <div class="sdpi-heading">BUTTONS</div>
-
-            <div class="sdpi-item" id="only_a_button">
-                <div class="sdpi-item-label">Button</div> 
-                <button onclick="openMeExternal()" class="sdpi-item-value" value="Click Me only">Click Me</button>
-            </div>
-
-            <div class="sdpi-item" id="tiny_button">
-                <div class="sdpi-item-label">Name</div> 
-                <button class="sdpi-item-value max20" value="Click Me max20">Click Me</button>
-            </div>
-
-            <div class="sdpi-item" id="2buttons">
-                <div class="sdpi-item-label">2 Buttons</div> 
-                <button class="sdpi-item-value" value="ClickMe">Click Me</button>
-                <button class="sdpi-item-value" value="OrMe">Or Me</button>
-           </div>
-
-           <div class="sdpi-heading">SELECTS</div>
-
-           <div class="sdpi-item" id="select_single">
-                <div class="sdpi-item-label">Select</div> 
-                <select class="sdpi-item-value select">
-                       <optgroup label="Women">
-                           <option value="janedoe@example.com">Jane Doe</option>
-                           <option value="tinatank@example.com">Some Girl</option>
-                           <option value="yoko@example.com">Yoko Hama</option>
-                       </optgroup>
-                       <optgroup label="Men">
-                           <option value="johndoe@example.com">John Doe</option>
-                           <option value="tiptronic@example.com">Some Man</option>
-                           <option value="kingofprawns@example.com">Another Chap</option>
-                       </optgroup>
-
-                </select> 
-           </div>
-
-           <div class="sdpi-item" id="select_combo">
-             <div class="sdpi-item-label">Combo</div> 
-             <select class="sdpi-item-value select">
+        <div class="sdpi-item" id="select_single">
+            <div class="sdpi-item-label">Select</div>
+            <select class="sdpi-item-value select">
+                <optgroup label="Women">
                     <option value="janedoe@example.com">Jane Doe</option>
-                    <option value="someguy@example.com">Some Guy</option>
-                </select> 
-              <button class="sdpi-item-value" value="ClickMe">Click Me</button>
-            </div>
+                    <option value="tinatank@example.com">Some Girl</option>
+                    <option value="yoko@example.com">Yoko Hama</option>
+                </optgroup>
+                <optgroup label="Men">
+                    <option value="johndoe@example.com">John Doe</option>
+                    <option value="tiptronic@example.com">Some Man</option>
+                    <option value="kingofprawns@example.com">Another Chap</option>
+                </optgroup>
 
-            <div class="sdpi-heading">CHECKBOXES & RADIO</div>
-            <div type="checkbox" class="sdpi-item" id="single-check">
-                <div class="sdpi-item-label">Light</div>
-                <div class="sdpi-item-value">
-                    <div class="sdpi-item-child">
-                        <input id="singlechk" type="checkbox" value="on">
-                        <label for="singlechk" class="sdpi-item-label"><span></span>on</label>
-                    </div>
+            </select>
+        </div>
+
+        <div class="sdpi-item" id="select_combo">
+            <div class="sdpi-item-label">Combo</div>
+            <select class="sdpi-item-value select">
+                <option value="janedoe@example.com">Jane Doe</option>
+                <option value="someguy@example.com">Some Guy</option>
+            </select>
+            <button class="sdpi-item-value" value="ClickMe">Click Me</button>
+        </div>
+
+        <div class="sdpi-heading">CHECKBOXES & RADIO</div>
+        <div type="checkbox" class="sdpi-item" id="single-check">
+            <div class="sdpi-item-label">Light</div>
+            <div class="sdpi-item-value">
+                <div class="sdpi-item-child">
+                    <input id="singlechk" type="checkbox" value="on">
+                    <label for="singlechk" class="sdpi-item-label"><span></span>on</label>
                 </div>
             </div>
+        </div>
 
-            <div type="checkbox" class="sdpi-item" id="multi-items">
-                <div class="sdpi-item-label">Select day</div>
-                <div class="sdpi-item-value min100">
-                    <div class="sdpi-item-child">
-                        <input id="days1" type="checkbox" value="Monday">
-                        <label for="days1" class="sdpi-item-label"><span></span>Monday</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="days2" type="checkbox" value="Tuesday">
-                        <label for="days2" class="sdpi-item-label"><span></span>Tuesday</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="days3" type="checkbox" value="Wednesday">
-                        <label for="days3" class="sdpi-item-label"><span></span>Wednesday</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="days4" type="checkbox" value="Thursday" checked>
-                        <label for="days4" class="sdpi-item-label"><span></span>Thursday</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="days5" type="checkbox" value="Friday">
-                        <label for="days5" class="sdpi-item-label"><span></span>Friday</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="days6" type="checkbox" value="Saturday">
-                        <label for="days6" class="sdpi-item-label"><span></span>Saturday</label>
-                    </div>
+        <div type="checkbox" class="sdpi-item" id="multi-items">
+            <div class="sdpi-item-label">Select day</div>
+            <div class="sdpi-item-value min100">
+                <div class="sdpi-item-child">
+                    <input id="days1" type="checkbox" value="Monday">
+                    <label for="days1" class="sdpi-item-label"><span></span>Monday</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="days2" type="checkbox" value="Tuesday">
+                    <label for="days2" class="sdpi-item-label"><span></span>Tuesday</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="days3" type="checkbox" value="Wednesday">
+                    <label for="days3" class="sdpi-item-label"><span></span>Wednesday</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="days4" type="checkbox" value="Thursday" checked>
+                    <label for="days4" class="sdpi-item-label"><span></span>Thursday</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="days5" type="checkbox" value="Friday">
+                    <label for="days5" class="sdpi-item-label"><span></span>Friday</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="days6" type="checkbox" value="Saturday">
+                    <label for="days6" class="sdpi-item-label"><span></span>Saturday</label>
                 </div>
             </div>
+        </div>
 
-            <hr>
+        <hr>
 
-            <div type="radio" class="sdpi-item" id="adjust_radio">
-                <div class="sdpi-item-label">Adjust Radio</div>
-                <div class="sdpi-item-value ">
-                    <div class="sdpi-item-child">
-                        <input id="rdio1" type="radio" name="rdio" >
-                        <label for="rdio1" class="sdpi-item-label"><span></span>on</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="rdio2" type="radio" value="off" name="rdio" checked>
-                        <label for="rdio2" class="sdpi-item-label"><span></span>off</label>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <input id="rdio3" type="radio" value="mute" name="rdio">
-                        <label for="rdio3" class="sdpi-item-label"><span></span>mute</label>
-                    </div>
+        <div type="radio" class="sdpi-item" id="adjust_radio">
+            <div class="sdpi-item-label">Adjust Radio</div>
+            <div class="sdpi-item-value ">
+                <div class="sdpi-item-child">
+                    <input id="rdio1" type="radio" name="rdio">
+                    <label for="rdio1" class="sdpi-item-label"><span></span>on</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="rdio2" type="radio" value="off" name="rdio" checked>
+                    <label for="rdio2" class="sdpi-item-label"><span></span>off</label>
+                </div>
+                <div class="sdpi-item-child">
+                    <input id="rdio3" type="radio" value="mute" name="rdio">
+                    <label for="rdio3" class="sdpi-item-label"><span></span>mute</label>
                 </div>
             </div>
+        </div>
 
-            <div class="sdpi-heading">COLOR</div>
+        <div class="sdpi-heading">COLOR</div>
 
-            <div type="color" class="sdpi-item" id="colorselection">
-                <div class="sdpi-item-label">Color</div>
-                <input type="color" class="sdpi-item-value" value="#3333cc">
+        <div type="color" class="sdpi-item" id="colorselection">
+            <div class="sdpi-item-label">Color</div>
+            <input type="color" class="sdpi-item-value" value="#3333cc">
+        </div>
+
+        <div class="sdpi-heading">RANGE</div>
+
+        <div type="range" class="sdpi-item" id="myfirstrange">
+            <div class="sdpi-item-label">Range</div>
+            <div class="sdpi-item-value">
+                <input class="floating-tooltip" data-suffix="%" type="range" min="0" max="100" value=17>
             </div>
+        </div>
 
-            <div class="sdpi-heading">RANGE</div>
-
-            <div type="range" class="sdpi-item" id="myfirstrange">
-                <div class="sdpi-item-label">Range</div>
-                <div class="sdpi-item-value">
-                    <input class="floating-tooltip" data-suffix="%" type="range" min="0" max="100" value=17>
-                </div>
+        <div type="range" class="sdpi-item" id="range_with_meters">
+            <div class="sdpi-item-label">Range (with label)</div>
+            <div class="sdpi-item-value">
+                <span class="clickable" value=0>0</span>
+                <input class="floating-tooltip" data-suffix="K" type="range" min="5" max="100" value=74>
+                <span class="clickable" value="100">100</span>
             </div>
-
-            <div type="range" class="sdpi-item" id="range_with_meters">
-                <div class="sdpi-item-label">Range (with label)</div>
-                <div class="sdpi-item-value">
-                    <span class="clickable" value=0>0</span>
-                    <input class="floating-tooltip" data-suffix="K" type="range" min="5" max="100" value=74>
-                    <span class="clickable" value="100">100</span>
-                </div>
-            </div>
+        </div>
 
         <div type="range" class="sdpi-item" id="range_with_datalist">
             <div class="sdpi-item-label">Range (with datalist)</div>
@@ -223,410 +233,477 @@
             </div>
         </div>
 
-            <div class="sdpi-heading">Meters</div>
+        <!-- see above CSS @ COLOR/BRIGHTNESS sliders, how to overwrite color values -->
 
-           <div class="sdpi-item" type="progress" id="meter">
-                <div class="sdpi-item-label">Meter</div>
-                <meter class="floating-tooltip" class="sdpi-item-value" value="0.6"></meter>
+        <div class="sdpi-item" type="range" id="myLightsID">
+            <div class="sdpi-item-label">Brightness</div>
+            <div class="sdpi-item-value">
+                <span class="icon-darker" value="3"></span>
+                <input id="2BCSknf2ID" type="range" class="colorbrightness" max-width="" :176px="" min="3" max="100" value="60">
+                <span class="icon-brighter" value="100"></span>
+                <label for="2BCSknf2ID" class="rangeLabel percent">60</label>
             </div>
+        </div>
 
-            <hr>
-
-            <div class="sdpi-item" type="progress" id="multimeter">
-                <div class="sdpi-item-label">Meter (multi)</div>
-                <meter class="sdpi-item-value" value="0.6"></meter>
-                <meter class="sdpi-item-value" value="0.2"></meter>
-                <meter class="sdpi-item-value" value="0.8"></meter>
+        <div type="range" class="sdpi-item">
+            <div class="sdpi-item-label">Color</div>
+            <div class="sdpi-item-value">
+                <input id="lights.brightness" class="floating-tooltip colorbrightness overwritten-by-css" data-suffix="%" type="range" min="0" max="100" value="100" id="UzYcgeTM">
             </div>
+        </div>
 
-            <hr>
-    
-            <div class="sdpi-item" type="meter" id="meter_full">
-                <div class="sdpi-item-label">Meter (full)</div>
-                <div class="sdpi-item-value sdpi-item-group" id="metergroup">
-                    <meter class="sdpi-item-value full" value="0.4"></meter>
+
+        <div class="sdpi-heading">Meters</div>
+
+        <div class="sdpi-item" type="progress" id="meter">
+            <div class="sdpi-item-label">Meter</div>
+            <meter class="floating-tooltip" class="sdpi-item-value" value="0.6"></meter>
+        </div>
+
+        <hr>
+
+        <div class="sdpi-item" type="progress" id="multimeter">
+            <div class="sdpi-item-label">Meter (multi)</div>
+            <meter class="sdpi-item-value" value="0.6"></meter>
+            <meter class="sdpi-item-value" value="0.2"></meter>
+            <meter class="sdpi-item-value" value="0.8"></meter>
+        </div>
+
+        <hr>
+
+        <div class="sdpi-item" type="meter" id="meter_full">
+            <div class="sdpi-item-label">Meter (full)</div>
+            <div class="sdpi-item-value sdpi-item-group" id="metergroup">
+                <meter class="sdpi-item-value full" value="0.4"></meter>
+                <meter class="sdpi-item-value full" value="0.2"></meter>
+                <meter class="sdpi-item-value full" value="0.7"></meter>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="sdpi-item" type="meter" id="meter_with_labels">
+            <div class="sdpi-item-label">Meter (with labels)</div>
+            <div class="sdpi-item-value sdpi-item-group" id="metergroup">
+                <div class="sdpi-item-child">
+                    <span for="meter1">0</span>
+                    <meter id="meter1" class="sdpi-item-value full" value="0.4"></meter>
+                    <span for="meter1">100</span>
+                </div>
+                <div class="sdpi-item-child">
+                    <span>-17</span>
                     <meter class="sdpi-item-value full" value="0.2"></meter>
+                    <span>37.2</span>
+                </div>
+                <div class="sdpi-item-child">
+                    <span>Min</span>
                     <meter class="sdpi-item-value full" value="0.7"></meter>
+                    <span>Max</span>
                 </div>
-             </div>
+            </div>
+        </div>
 
-             <hr>
+        <div class="sdpi-heading">Progress</div>
 
-             <div class="sdpi-item" type="meter" id="meter_with_labels">
-                <div class="sdpi-item-label">Meter (with labels)</div>
-                <div class="sdpi-item-value sdpi-item-group" id="metergroup">
-                    <div class="sdpi-item-child">
-                        <span for="meter1">0</span>
-                        <meter id="meter1" class="sdpi-item-value full" value="0.4"></meter>
-                        <span for="meter1">100</span>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <span>-17</span>
-                        <meter class="sdpi-item-value full" value="0.2"></meter>
-                        <span>37.2</span>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <span>Min</span>
-                        <meter class="sdpi-item-value full" value="0.7"></meter>
-                        <span>Max</span>
-                    </div>
+        <div class="sdpi-item" type="progress" id="progress">
+            <div class="sdpi-item-label">Progress</div>
+            <progress class="sdpi-item-value" value="0.6" max="1"></progress>
+        </div>
+
+        <hr>
+
+        <div class="sdpi-item" type="progress" id="multiprogress">
+            <div class="sdpi-item-label">Progress</div>
+            <progress class="sdpi-item-value" value="0.6" max="1"></progress>
+            <progress class="sdpi-item-value" value="0.2" max="1"></progress>
+            <progress class="sdpi-item-value" value="0.8" max="1"></progress>
+        </div>
+
+        <hr>
+
+        <div class="sdpi-item" type="progress" id="progress_full">
+            <div class="sdpi-item-label">Progress (full)</div>
+            <div class="sdpi-item-value sdpi-item-group" id="metergroup">
+                <progress class="sdpi-item-value full" value="0.4" val="1"></progress>
+                <progress class="sdpi-item-value full" value="0.2" val="1"></progress>
+                <progress class="sdpi-item-value full" value="0.7" val="1"></progress>
+            </div>
+        </div>
+        <hr>
+
+        <div class="sdpi-item" type="progress" id="progress_with_labels">
+            <div class="sdpi-item-label">Progress (with labels)</div>
+            <div class="sdpi-item-value sdpi-item-group" id="progressgroup">
+                <div class="sdpi-item-child">
+                    <span for="progress1">0</span>
+                    <progress id="progress1" class="sdpi-item-value full" value="0.4"></progress>
+                    <span for="progress1">100</span>
                 </div>
-             </div>
-
-             <div class="sdpi-heading">Progress</div>
-
-             <div class="sdpi-item" type="progress" id="progress">
-                <div class="sdpi-item-label">Progress</div>
-                <progress class="sdpi-item-value" value="0.6" max="1"></progress>
-            </div>
-            
-            <hr>
-
-            <div class="sdpi-item" type="progress" id="multiprogress">
-                <div class="sdpi-item-label">Progress</div>
-                <progress class="sdpi-item-value" value="0.6" max="1"></progress>
-                <progress class="sdpi-item-value" value="0.2" max="1"></progress>
-                <progress class="sdpi-item-value" value="0.8" max="1"></progress>
-            </div>
-
-            <hr>
-    
-            <div class="sdpi-item" type="progress" id="progress_full">
-                <div class="sdpi-item-label">Progress (full)</div>
-                <div class="sdpi-item-value sdpi-item-group" id="metergroup">
-                    <progress class="sdpi-item-value full" value="0.4" val="1"></progress>
-                    <progress class="sdpi-item-value full" value="0.2" val="1"></progress>
-                    <progress class="sdpi-item-value full" value="0.7" val="1"></progress>
+                <div class="sdpi-item-child">
+                    <span>-17</span>
+                    <progress class="sdpi-item-value full" value="0.2"></progress>
+                    <span>37.2</span>
                 </div>
-             </div>
-             <hr>
-
-             <div class="sdpi-item" type="progress" id="progress_with_labels">
-                <div class="sdpi-item-label">Progress (with labels)</div>
-                <div class="sdpi-item-value sdpi-item-group" id="progressgroup">
-                    <div class="sdpi-item-child">
-                        <span for="progress1">0</span>
-                        <progress id="progress1" class="sdpi-item-value full" value="0.4"></progress>
-                        <span for="progress1">100</span>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <span>-17</span>
-                        <progress class="sdpi-item-value full" value="0.2"></progress>
-                        <span>37.2</span>
-                    </div>
-                    <div class="sdpi-item-child">
-                        <span>Min</span>
-                        <progress class="sdpi-item-value full" value="0.7"></progress>
-                        <span>Max</span>
-                    </div>
+                <div class="sdpi-item-child">
+                    <span>Min</span>
+                    <progress class="sdpi-item-value full" value="0.7"></progress>
+                    <span>Max</span>
                 </div>
-             </div>
-             
-            <div class="sdpi-heading">LISTS</div>
-
-            <div type="list" class="sdpi-item list" id="unorderedListContainer">
-                <div class="sdpi-item-label">List (unordered)</div> 
-                <ul class="sdpi-item-value no-select" id="unorderedList">
-                    <li>Milk</li>
-                    <li>Bread</li>
-                    <li>Chocolate</li>
-                    <li>More chocolate</li>
-                </ul>
             </div>
+        </div>
 
-            <div type="list" class="sdpi-item list" id="unorderedListContainer">
-                <div class="sdpi-item-label">List (flex)</div> 
-                <ul class="sdpi-item-value two-items" id="unorderedList">
-                    <li><span>Milk</span><span>1 liter</span></li>
-                    <li><span>Bread</span><span>1 slice</span></li>
-                    <li><span>Chocolate</span><span>lots of</span></li>
-                    <li><span>More</span><span>things...</span></li>
-                </ul>
+        <div class="sdpi-heading">LISTS</div>
+
+        <div type="list" class="sdpi-item list" id="unorderedListContainer">
+            <div class="sdpi-item-label">List (unordered)</div>
+            <ul class="sdpi-item-value no-select" id="unorderedList">
+                <li>Milk</li>
+                <li>Bread</li>
+                <li>Chocolate</li>
+                <li>More chocolate</li>
+            </ul>
+        </div>
+
+        <div type="list" class="sdpi-item list" id="unorderedListContainer">
+            <div class="sdpi-item-label">List (flex)</div>
+            <ul class="sdpi-item-value two-items" id="unorderedList">
+                <li><span>Milk</span><span>1 liter</span></li>
+                <li><span>Bread</span><span>1 slice</span></li>
+                <li><span>Chocolate</span><span>lots of</span></li>
+                <li><span>More</span><span>things...</span></li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div type="list" class="sdpi-item list" id="orderedListContainer">
+            <div class="sdpi-item-label">List (single select)</div>
+            <ol class="sdpi-item-value single-select" id="orderedList1" type="decimal">
+                <li>Milk</li>
+                <li>Bread</li>
+                <li>Chocolate</li>
+                <li>More chocolate</li>
+            </ol>
+        </div>
+
+        <hr>
+
+        <div type="list" class="sdpi-item list" id="orderedListContainer">
+            <div class="sdpi-item-label">List (multi select)</div>
+            <ol class="sdpi-item-value multi-select" id="orderedList2" type="lower-alpha">
+                <li>Coke</li>
+                <li>Sprite</li>
+                <li>Juice</li>
+                <li>Water</li>
+                <li>Mocktail</li>
+                <li>Smoothies</li>
+                <li>Milk</li>
+                <li>Tea</li>
+                <li>Coffee</li>
+            </ol>
+        </div>
+
+        <div class="sdpi-heading">TABLES</div>
+
+        <div class="sdpi-item" id="tableid">
+            <div class="sdpi-item-label">Table (no-select)</div>
+            <table class="sdpi-item-value no-select" width="100%">
+                <caption>Table without selection</caption>
+                <tr>
+                    <td>One</td>
+                    <td>Two</td>
+                    <td>Three</td>
+                </tr>
+                <tr>
+                    <td>1.00</td>
+                    <td>2.00</td>
+                    <td>3.00</td>
+                </tr>
+                <tr>
+                    <td>west</td>
+                    <td>east</td>
+                    <td>south</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sdpi-item" id="tableid1">
+            <div class="sdpi-item-label">Table (single-select)</div>
+            <table class="sdpi-item-value" width="100%">
+                <caption>Table with single selection</caption>
+                <tr>
+                    <td>Four</td>
+                    <td>Five</td>
+                    <td>Six</td>
+                </tr>
+                <tr>
+                    <td>4.00</td>
+                    <td>5.00</td>
+                    <td>6.50</td>
+                </tr>
+                <tr>
+                    <td>west</td>
+                    <td>east</td>
+                    <td>south</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sdpi-item" id="tableid2">
+            <div class="sdpi-item-label">Table (multi-select)</div>
+            <table class="sdpi-item-value multi-select" width="100%">
+                <caption>Table with multi selection</caption>
+                <tr>
+                    <td>Seven</td>
+                    <td>Eight</td>
+                    <td>Nine</td>
+                </tr>
+                <tr>
+                    <td>7.00</td>
+                    <td>8.00</td>
+                    <td>9.99</td>
+                </tr>
+                <tr>
+                    <td>west</td>
+                    <td>east</td>
+                    <td>south</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="sdpi-heading">DATE/TIME</div>
+
+        <div class="sdpi-item" id="date">
+            <div class="sdpi-item-label">Date</div>
+            <input class="sdpi-item-value" type="date" value="2019-01-15">
+        </div>
+
+        <div class="sdpi-item" id="daterange">
+            <div class="sdpi-item-label">Date range</div>
+            <input class="sdpi-item-value" id="when" name="when" type="date" min="2018-12-01" max="2019-02-01" value="2018-12-31">
+        </div>
+
+        <div class="sdpi-item" id="month">
+            <div class="sdpi-item-label">Month</div>
+            <input class="sdpi-item-value" type="month" value="2019-01">
+        </div>
+
+        <div class="sdpi-item" id="month">
+            <div class="sdpi-item-label">Month (with list)</div>
+            <input class="sdpi-item-value" type="month" value="2019-02" list="months">
+            <datalist id="months">
+                <option label="Neil on the moon">1967-07</option>
+                <option label="First month of this century">2000-01</option>
+                <option label="Last month of last century">1999-12</option>
+                <option label="Last month of 2019">2019-12</option>
+            </datalist>
+        </div>
+
+        <div class="sdpi-item" id="week">
+            <div class="sdpi-item-label">Week</div>
+            <input class="sdpi-item-value" type="week" value="2019-W02" list="weeks">
+            <datalist id="weeks">
+                <option label="First week of 2019">2019-W01</option>
+                <option label="Second week of 2019">2019-W02</option>
+                <option label="Fifth week of 2019">2019-W05</option>
+                <option label="24th week of 2019">2019-W24</option>
+                <option label="Last week of 2019">2019-W52</option>
+            </datalist>
+        </div>
+
+
+        <div class="sdpi-item" id="time">
+            <div class="sdpi-item-label">Time</div>
+            <input class="sdpi-item-value" type="time" value="09:42">
+        </div>
+
+        <div class="sdpi-item" id="localdatetime">
+            <div class="sdpi-item-label">Datetime local</div>
+            <input class="sdpi-item-value" type="datetime-local" value="2019-01-06T12:22">
+        </div>
+
+
+        <div class="sdpi-heading">FILE</div>
+
+        <div class="sdpi-item" id="my_private_file_selector">
+            <div class="sdpi-item-label">Select File</div>
+            <div class="sdpi-item-group file" id="filepickergroup">
+                <input class="sdpi-item-value" type="file" id="elgfilepicker" accept=".jpg, .jpeg, .png, .gif">
+                <label class="sdpi-file-info" for="elgfilepicker">no file...</label>
+                <label class="sdpi-file-label" for="elgfilepicker">Choose file...</label>
             </div>
+        </div>
 
-            <hr>
+        <div class="sdpi-heading">GROUPS</div>
 
-            <div type="list" class="sdpi-item list" id="orderedListContainer">
-                <div class="sdpi-item-label">List (single select)</div> 
-                <ol class="sdpi-item-value single-select" id="orderedList1" type="decimal">
-                    <li>Milk</li>
-                    <li>Bread</li>
-                    <li>Chocolate</li>
-                    <li>More chocolate</li>
-                </ol>
-            </div>
-
-            <hr>
-
-            <div type="list" class="sdpi-item list" id="orderedListContainer">
-                <div class="sdpi-item-label">List (multi select)</div> 
-                <ol class="sdpi-item-value multi-select" id="orderedList2" type="lower-alpha">
-                    <li>Coke</li>
-                    <li>Sprite</li>
-                    <li>Juice</li>
-                    <li>Water</li>
-                    <li>Mocktail</li>
-                    <li>Smoothies</li>
-                    <li>Milk</li>
-                    <li>Tea</li>
-                    <li>Coffee</li>
-                </ol>
-            </div>
-
-            <div class="sdpi-heading">TABLES</div>
-
-            <div class="sdpi-item" id="tableid">
-                    <div class="sdpi-item-label">Table (no-select)</div> 
-                    <table class="sdpi-item-value no-select" width="100%">
-                        <caption>Table without selection</caption>
-                        <tr>
-                            <td>One</td>
-                            <td>Two</td>
-                            <td>Three</td>
-                        </tr>
-                        <tr>
-                            <td>1.00</td>
-                            <td>2.00</td>
-                            <td>3.00</td>
-                        </tr>
-                        <tr>
-                            <td>west</td>
-                            <td>east</td>
-                            <td>south</td>
-                        </tr>
-                    </table>
+        <div type="group" class="sdpi-item" id="messagegroup">
+            <div class="sdpi-item-label">Send A Message</div>
+            <div class="sdpi-item-group" id="messagegroup_items">
+                <div type="select" class="sdpi-item" id="messagegroup_account">
+                    <div class="sdpi-item-label">Account ID</div>
+                    <select class="sdpi-item-value select">
+                        <option value="janedoe@example.com">Jane Doe</option>
+                        <option value="someguy@example.com">Some Guy</option>
+                        <option value="anotherchap@example.com">Another Chap</option>
+                    </select>
                 </div>
-                        
-                <div class="sdpi-item" id="tableid1">
-                    <div class="sdpi-item-label">Table (single-select)</div> 
-                    <table class="sdpi-item-value" width="100%">
-                        <caption>Table with single selection</caption>
-                        <tr>
-                            <td>Four</td>
-                            <td>Five</td>
-                            <td>Six</td>
-                        </tr>
-                        <tr>
-                            <td>4.00</td>
-                            <td>5.00</td>
-                            <td>6.50</td>
-                        </tr>
-                        <tr>
-                            <td>west</td>
-                            <td>east</td>
-                            <td>south</td>
-                        </tr>
-                    </table>
-                </div>
-    
-                <div class="sdpi-item" id="tableid2">
-                    <div class="sdpi-item-label">Table (multi-select)</div> 
-                    <table class="sdpi-item-value multi-select" width="100%">
-                        <caption>Table with multi selection</caption>
-                        <tr>
-                            <td>Seven</td>
-                            <td>Eight</td>
-                            <td>Nine</td>
-                        </tr>
-                        <tr>
-                            <td>7.00</td>
-                            <td>8.00</td>
-                            <td>9.99</td>
-                        </tr>
-                        <tr>
-                            <td>west</td>
-                            <td>east</td>
-                            <td>south</td>
-                        </tr>
-                    </table>
-                </div>
+                <div type="textarea" class="sdpi-item" id="messagegroup_message">
+                    <div class="sdpi-item-label up20">Message</div>
+                    <div class="sdpi-item-value textarea">
+                        <textarea type="textarea" maxlength="50" id="textarea11"></textarea>
+                        <label for="textarea11" id="textarea11_counter">123/456</label>
 
-            <div class="sdpi-heading">DATE/TIME</div>
-
-            <div class="sdpi-item" id="date">
-                <div class="sdpi-item-label">Date</div>
-                <input class="sdpi-item-value" type="date" value="2019-01-15">
-            </div>
-
-            <div class="sdpi-item" id="daterange">
-                <div class="sdpi-item-label">Date range</div>
-                <input class="sdpi-item-value" id="when" name="when" type="date" min="2018-12-01" max="2019-02-01" value="2018-12-31">
-            </div>
-
-            <div class="sdpi-item" id="month">
-                    <div class="sdpi-item-label">Month</div>
-                    <input class="sdpi-item-value" type="month" value="2019-01">
-            </div>
-
-            <div class="sdpi-item" id="month">
-                    <div class="sdpi-item-label">Month (with list)</div>
-                    <input class="sdpi-item-value" type="month" value="2019-02" list="months">
-                    <datalist id="months">
-                        <option label="Neil on the moon">1967-07</option>
-                        <option label="First month of this century">2000-01</option>
-                        <option label="Last month of last century">1999-12</option>
-                        <option label="Last month of 2019">2019-12</option>
-                      </datalist>
-                </div>
-
-            <div class="sdpi-item" id="week">
-                <div class="sdpi-item-label">Week</div>
-                <input class="sdpi-item-value" type="week" value="2019-W02" list="weeks">
-                <datalist id="weeks">
-                        <option label="First week of 2019">2019-W01</option>
-                        <option label="Second week of 2019">2019-W02</option>
-                        <option label="Fifth week of 2019">2019-W05</option>
-                        <option label="24th week of 2019">2019-W24</option>
-                        <option label="Last week of 2019">2019-W52</option>
-                      </datalist>
-            </div>
-
-
-            <div class="sdpi-item" id="time">
-                <div class="sdpi-item-label">Time</div>
-                <input class="sdpi-item-value" type="time" value="09:42">
-            </div>
-
-            <div class="sdpi-item" id="localdatetime">
-                <div class="sdpi-item-label">Datetime local</div>
-                <input class="sdpi-item-value" type="datetime-local" value="2019-01-06T12:22">
-            </div>
-                
-
-            <div class="sdpi-heading">FILE</div>
-
-            <div class="sdpi-item" id="my_private_file_selector">
-                <div class="sdpi-item-label">Select File</div>
-                <div class="sdpi-item-group file" id="filepickergroup">
-                    <input class="sdpi-item-value" type="file" id="elgfilepicker" accept=".jpg, .jpeg, .png">
-                    <label class="sdpi-file-info" for="elgfilepicker">no file...</label>
-                    <label class="sdpi-file-label" for="elgfilepicker">Choose file...</label>
-                 </div>
-             </div>
-
-            <div class="sdpi-heading">GROUPS</div>
-
-            <div type="group" class="sdpi-item" id="messagegroup">
-                <div class="sdpi-item-label">Send A Message</div>
-                <div class="sdpi-item-group" id="messagegroup_items">
-                    <div type="select" class="sdpi-item" id="messagegroup_account">
-                        <div class="sdpi-item-label">Account ID</div> 
-                        <select class="sdpi-item-value select">
-                            <option value="janedoe@example.com">Jane Doe</option>
-                            <option value="someguy@example.com">Some Guy</option>
-                            <option value="anotherchap@example.com">Another Chap</option>
-                        </select>
-                    </div>
-                    <div type="textarea" class="sdpi-item" id="messagegroup_message">
-                        <div class="sdpi-item-label up20">Message</div>
-                        <div class="sdpi-item-value textarea">
-                            <textarea type="textarea" maxlength="50" id="textarea11"></textarea>
-                            <label for="textarea11" id="textarea11_counter">123/456</label>
-
-                        </div>
                     </div>
                 </div>
             </div>
- 
-            <hr>
- 
-            <div type="group" class="sdpi-item" id="mycolorgroup">
-                <div class="sdpi-item-label">Grouped Colors</div>
-                <div class="sdpi-item-group" id="colortransition">
-                    <div type="color" class="sdpi-item" id="startcolor">
-                        <div class="sdpi-item-label">Startcolor</div>
-                        <input type="color" class="sdpi-item-value" value="#000000">
-                    </div>
-                    <div type="color" class="sdpi-item" id="endcolor">
-                        <div class="sdpi-item-label">Endcolor</div>
-                        <input type="color" class="sdpi-item-value" value="#efefef">
-                    </div>
+        </div>
+
+        <hr>
+
+        <div type="group" class="sdpi-item" id="mycolorgroup">
+            <div class="sdpi-item-label">Grouped Colors</div>
+            <div class="sdpi-item-group" id="colortransition">
+                <div type="color" class="sdpi-item" id="startcolor">
+                    <div class="sdpi-item-label">Startcolor</div>
+                    <input type="color" class="sdpi-item-value" value="#000000">
+                </div>
+                <div type="color" class="sdpi-item" id="endcolor">
+                    <div class="sdpi-item-label">Endcolor</div>
+                    <input type="color" class="sdpi-item-value" value="#efefef">
                 </div>
             </div>
+        </div>
 
-            <div class="sdpi-heading">Message</div>
-            
-            <div class="sdpi-item">
-                <details class="message question">
+        <div class="sdpi-heading">Message</div>
+
+        <div class="sdpi-item">
+            <details class="message question">
                 <summary>This is some message</summary>
-                    <h4>Information:</h4>
-                    <p>In this area you can type some information to your user.</p>
-                    <a class="info" href="#">Click here</a>
-                </details>
-            </div>
-
-
-            <div class="sdpi-heading">DETAILS</div>
-
-            <div class="sdpi-item">
-                <div class="sdpi-item-label">Details</div>
-                <details class="sdpi-item-value">
-                    <summary>Wrapped Details</summary>
-                    <p>If you like to show details aligned with other controls, you can simply wrap the details-item into a regular 'sdpi-item-value'</p>
-                    <p>In this case, details are auto-aligned with the sdpi-item-value controls above.</p>
-                    <p>....</p>
-                </details>
-                </div>
-
-             <details>
-                <summary>More Info</summary>
-                <p>These samples are provided by Elgato Systems 'as is'.</p>
-                <p>You are encouraged to use these samples (or this plugin) as a starter for your own ideas. (Just keep in mind to read the SDK-documentation and/or - at least - <mark>change the UUID in the manifest.json</mark> 😉 )</p>
-                <p>To find out how things are working, just open the 'index_pi.html' included in this plugin and compare to what's shown in StreamDeck</p>
-                <h4>Scripts</h4>
-                <p>There's an index_pi.js file, which makes this sample interactive and sends changes to the Stream Deck plugin.</p>
-                <p>This is a very convenient (although not optimized) way to communicate from Property Inspector to your plugin.
-                If you think you have a better solution, please feel free to reach out and send your ideas.</p>
-                <h4>Other</h4>
-                <p>We hope you enjoy extending your Stream Deck and are pretty curious what you will do with it.</p>
-                <p>Enjoy</p>
-                <p>Your Elgato Gaming chaps</p>
+                <h4>Information:</h4>
+                <p>In this area you can type some information to your user.</p>
+                <a class="info" href="#">Click here</a>
             </details>
+        </div>
 
 
-             <div class="sdpi-heading">CAROUSEL</div>
+        <div class="sdpi-heading">DETAILS</div>
 
-            <div type="carousel" class="sdpi-item" id="mycarousel">
-                <div type="carousel" class="card-carousel-wrapper">
-                    <div disabled="disabled" class="card-carousel--nav__left"></div>
-                    <div class="card-carousel">
-                        <div class="card-carousel--overflow-container">
-                            <div class="card-carousel-cards" style="transform: translateX(0px);">
-                                <div class="card-carousel--card" value="Game Capture"><img src="action/images/hd60s.png">
-                                    <div class="card-carousel--card--footer">Game Capture</div>
-                                </div>
-                                <div class="card-carousel--card" value="Control Center"><img src="action/images/cc.png">
-                                    <div class="card-carousel--card--footer">Control Center</div>
-                                </div>
-                                <div class="card-carousel--card" value="Green Screen"><img src="action/images/gs.png">
-                                    <div class="card-carousel--card--footer">Green Screen</div>
-                                </div>
-                                <div class="card-carousel--card" value="Key Creator"><img src="action/images/kc.png">
-                                    <div class="card-carousel--card--footer">Key Creator</div>
-                                </div>
-                                <div class="card-carousel--card" value="HD60 Pro"><img src="action/images/hd60spro.png">
-                                    <div class="card-carousel--card--footer">HD60 Pro</div>
-                                </div>
-                                <div class="card-carousel--card" value="HD60"><img src="action/images/hd60s.png">
-                                    <div class="card-carousel--card--footer">HD60</div>
-                                </div>
-                                <div class="card-carousel--card" value="Stream Deck"><img src="action/images/sd.png">
-                                    <div class="card-carousel--card--footer">Stream Deck</div>
-                                </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">Details</div>
+            <details class="sdpi-item-value">
+                <summary>Wrapped Details</summary>
+                <p>If you like to show details aligned with other controls, you can simply wrap the details-item into a regular 'sdpi-item-value'</p>
+                <p>In this case, details are auto-aligned with the sdpi-item-value controls above.</p>
+                <p>....</p>
+            </details>
+        </div>
+
+        <details>
+            <summary>More Info</summary>
+            <p>These samples are provided by Elgato Systems 'as is'.</p>
+            <p>You are encouraged to use these samples (or this plugin) as a starter for your own ideas. (Just keep in mind to read the SDK-documentation and/or - at least - <mark>change the UUID in the manifest.json</mark> 😉 )</p>
+            <p>To find out how things are working, just open the 'index_pi.html' included in this plugin and compare to what's shown in StreamDeck</p>
+            <h4>Scripts</h4>
+            <p>There's an index_pi.js file, which makes this sample interactive and sends changes to the Stream Deck plugin.</p>
+            <p>This is a very convenient (although not optimized) way to communicate from Property Inspector to your plugin.
+                If you think you have a better solution, please feel free to reach out and send your ideas.</p>
+            <h4>Other</h4>
+            <p>We hope you enjoy extending your Stream Deck and are pretty curious what you will do with it.</p>
+            <p>Enjoy</p>
+            <p>Your Elgato Gaming chaps</p>
+        </details>
+
+
+        <div class="sdpi-heading">CAROUSEL</div>
+
+        <div type="carousel" class="sdpi-item" id="mycarousel">
+            <div type="carousel" class="card-carousel-wrapper">
+                <div disabled="disabled" class="card-carousel--nav__left"></div>
+                <div class="card-carousel">
+                    <div class="card-carousel--overflow-container">
+                        <div class="card-carousel-cards" style="transform: translateX(0px);">
+                            <div class="card-carousel--card" value="Game Capture"><img src="action/images/hd60s.png">
+                                <div class="card-carousel--card--footer">Game Capture</div>
+                            </div>
+                            <div class="card-carousel--card" value="Control Center"><img src="action/images/cc.png">
+                                <div class="card-carousel--card--footer">Control Center</div>
+                            </div>
+                            <div class="card-carousel--card" value="Green Screen"><img src="action/images/gs.png">
+                                <div class="card-carousel--card--footer">Green Screen</div>
+                            </div>
+                            <div class="card-carousel--card" value="Key Creator"><img src="action/images/kc.png">
+                                <div class="card-carousel--card--footer">Key Creator</div>
+                            </div>
+                            <div class="card-carousel--card" value="HD60 Pro"><img src="action/images/hd60spro.png">
+                                <div class="card-carousel--card--footer">HD60 Pro</div>
+                            </div>
+                            <div class="card-carousel--card" value="HD60"><img src="action/images/hd60s.png">
+                                <div class="card-carousel--card--footer">HD60</div>
+                            </div>
+                            <div class="card-carousel--card" value="Stream Deck"><img src="action/images/sd.png">
+                                <div class="card-carousel--card--footer">Stream Deck</div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-carousel--nav__right"></div>
                 </div>
+                <div class="card-carousel--nav__right"></div>
             </div>
-
-
         </div>
-        <div class="sdpi-info-label hidden" style="top: -1000;" value=""></div>
 
-        <!-- <script src="echomd.js"></script> -->
-        <script src="index_pi.js"></script>
+        <div class="sdpi-heading">CONTEXT MENU</div>
 
-    </body>
+        <div class="sdpi-item">
+            <nav id="my-context-menu1" class="context-menu">
+                <ul class="context-menu__items">
+                    <li class="context-menu__item context-menu_message">
+                        Select something
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#">useless option 1</a>
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#">useless option 2</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sdpi-item-label">Button</div>
+            <button class="sdpi-item-value" onclick="openContextMenu('my-context-menu1', window.event.pageX, window.event.pageY)" value="Click to show the menu">Click to show the menu</button>
+        </div>
 
-    </html>
+        <div class="sdpi-item">
+            <nav id="my-context-menu2" class="context-menu">
+                <ul class="context-menu__items">
+                    <li class="context-menu__item context-menu_message">
+                        Select something
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#" data-greetings="hello">useless option 1</a>
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#" data-greetings="hola">useless option 2</a>
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#" data-greetings="hallo">useless option 3</a>
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#" data-greetings="ciao">useless option 4</a>
+                    </li>
+                    <li class="context-menu__item">
+                        <a class="context-menu__link" href="#" data-greetings="ciao">useless option 5</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sdpi-item-label">Right click in this input field</div>
+            <input class="sdpi-item-value" oncontextmenu="openContextMenu('my-context-menu2', window.event.pageX, window.event.pageY)" type="text" placeholder="right-click here to show the menu" id="mynameinput" value="">
+        </div>
+
+
+    </div>
+    <div class="sdpi-info-label hidden" style="top: -1000;" value=""></div>
+
+    <!-- <script src="echomd.js"></script> -->
+    <script src="index_pi.js"></script>
+
+</body>
+
+</html>

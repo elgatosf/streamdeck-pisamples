@@ -262,7 +262,7 @@ option {
   align-items: center;
   margin-top: 2px;
   max-width: 344px;
-  -webkit-user-drag: none;
+  /* -webkit-user-drag: none; */
 }
 
 .sdpi-item:first-child {
@@ -1570,4 +1570,58 @@ input[type="range"].colortemperature::-webkit-slider-thumb {
   position: absolute;
   opacity: 1;
   transition: opacity 0.25s ease-out;
+}
+
+
+
+
+/*--------- context menu ----------*/
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 120px;
+  background-color: #3D3D3D;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.context-menu__item {
+  display: block;
+  margin-bottom: 4px;
+  background-color: #3D3D3D !important;
+}
+
+.context-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.context-menu__link {
+  display: block;
+  padding: 4px 12px;
+  color: #ffff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.context-menu__link:hover {
+  color: #fff;
+  background-color: #0066aa;
+}
+
+.context-menu_message{
+	cursor: default;
 }

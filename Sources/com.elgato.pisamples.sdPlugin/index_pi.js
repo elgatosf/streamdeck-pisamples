@@ -25,7 +25,7 @@ function connectElgatoStreamDeckSocket (inPort, inUUID, inRegisterEvent, inInfo,
     
     /** let's see, if we have some settings */
     settings = getPropFromString(actionInfo, 'payload.settings', false);
-    console.log(settings, actionInfo);
+    // console.log(settings, actionInfo);
     initPropertyInspector(5);
 
     // if connection was established, the websocket sends
@@ -64,7 +64,7 @@ window.addEventListener('message',function(ev) {
 },false);
 
 function openMeExternal() {
-    window.xtWindow = window.open('index_pi.html', "PI Samples");
+    window.xtWindow = window.open('index_pi.html', 'PI Samples');
     setTimeout(() => window.xtWindow.postMessage('initPropertyInspector', '*'), 1500);
 }
 
@@ -77,6 +77,8 @@ function initPropertyInspector(initDelay) {
     setTimeout(function () {
         initCarousel();
         initToolTips();
+        dragTest();
+
     }, initDelay || 100);
 }
 
@@ -293,7 +295,12 @@ function handleSdpiItemChange(e, idx) {
         }
     }
 
-    if (e.selectedIndex) {
+    if (e.selectedIndex !== undefined) {
+        if (e.tagName === 'SELECT') {
+            sdpiItemChildren.forEach((ec, i) => {
+                selectedElements.push({ [ec.id]: ec.value });
+            });
+        }
         idx = e.selectedIndex;
     } else {
         sdpiItemChildren.forEach((ec, i) => {
@@ -649,7 +656,10 @@ function drag_start(event) {
      * attribute (otherwise the node will get extended so it includes the title
      * node too.)
      */
+    
+    const t = event.target.getAttribute('title');
     // event.target.removeAttribute('title');
+    // temporarily remove draggable attribute before copying
     event.target.removeAttribute('draggable');
     event.dataTransfer.effectAllowed = "all";
     var dataList = event.dataTransfer.items;
@@ -658,6 +668,10 @@ function drag_start(event) {
      * looks a bit nicer.
      */
     const prettifiedHTMLString = prettifyHTML(event.target.outerHTML);
+    
+    // add draggable attribute after copying
+    event.target.setAttribute('draggable', "true");
+    if(t) event.target.setAttribute('title', t);
 
     /**
      * Finally add the prettified string to the dragObjs data-container:
@@ -674,9 +688,8 @@ function dragTest() {
         e.addEventListener("dragstart", drag_start, false);
         e.setAttribute('draggable', "true");
         // e.ondragstart="drag_start(event)";
-    });
-    console.log("done");
 
+    });
 }
 
 function prettifyHTML(htmlStr) {
@@ -708,11 +721,9 @@ function rangeToPercent(value, min, max) {
     return (value / (max - min));
 };
 function initToolTips() {
-    console.log("INITTOOLTIPS")
     const tooltip = document.querySelector('.sdpi-info-label');
     const arrElements = document.querySelectorAll('.floating-tooltip');
     arrElements.forEach((e,i) => {
-        console.log("ELEMENTS:", e);
         initToolTip(e, tooltip)
     })
 }
