@@ -20,9 +20,7 @@
 - allows easy drag and drop of it's elements to your HTML-editor; just drag the item to your Property Inspector's .html file.
   
 <div class="video_container" style="position:relative; padding-bottom:56.25%; padding-top: 25px;height: 0">
- <video controls="controls" allowfullscreen="true" poster="poster.jpg" width="800" style="position:absolute;top:0;left:0;height:100%;width:100%;">
-    <source src="PISamples_dragndrop.mp4" type="video/mp4">
-  </video> 
+https://user-images.githubusercontent.com/80752/153376059-8897cc53-67a5-4cd0-8e47-3f966c9d9c68.mp4
 </div>
 
 # Installation
