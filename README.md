@@ -19,9 +19,7 @@
 
 - allows easy drag and drop of it's elements to your HTML-editor; just drag the item to your Property Inspector's .html file.
   
-<div class="video_container" style="position:relative; padding-bottom:56.25%; padding-top: 25px;height: 0">
 https://user-images.githubusercontent.com/80752/153376059-8897cc53-67a5-4cd0-8e47-3f966c9d9c68.mp4
-</div>
 
 # Installation
 
