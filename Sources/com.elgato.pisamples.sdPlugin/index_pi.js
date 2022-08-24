@@ -117,33 +117,9 @@ window.addEventListener('beforeunload', function (e) {
     // Don't set a returnValue to the event, otherwise Chromium with throw an error.  // e.returnValue = '';
 });
 
-/** the pagehide event is fired, when the view disappears */
-/*
-window.addEventListener('pagehide', function (event) {
-    console.log('%c%s','background: green; font-size: 22px; font-weight: bold;','window --->> pagehide.');
-    sendValueToPlugin('propertyInspectorPagehide', 'property_inspector');
-
-});
-*/
-
-/** the unload event is fired, when the PI will finally disappear */
-/*
-window.addEventListener('unload', function (event) {
-    console.log('%c%s','background: orange; font-size: 22px; font-weight: bold;','window --->> onunload.');
-    sendValueToPlugin('propertyInspectorDisconnected', 'property_inspector');
-});
-*/
-
-/** if you prefer, you can apply these listeners to PI's body, like so:
- *
- * <body onpagehide="sendValueToPlugin('propertyInspectorPagehide', 'property_inspector');">
- *
- * <body onunload="sendValueToPlugin('propertyInspectorDisconnected', 'property_inspector');">
-*/
-
 /** CREATE INTERACTIVE HTML-DOM
  * where elements can be clicked or act on their 'change' event.
- * Messages are then processed using the 'handleSdpiItemClick' method below.
+ * Messages are then processed using the 'handleSdpiItemChange' method below.
  */
 
 function prepareDOMElements(baseElement) {
@@ -167,9 +143,9 @@ function prepareDOMElements(baseElement) {
             const inputGroup = el.querySelectorAll('input + span');
             if (inputGroup.length === 2) {
                 const offs = inputGroup[0].tagName === 'INPUT' ? 1 : 0;
-                inputGroup[offs].textContent = inputGroup[1 - offs].value;
+                inputGroup[offs].innerText = inputGroup[1 - offs].value;
                 inputGroup[1 - offs]['oninput'] = function() {
-                    inputGroup[offs].textContent = inputGroup[1 - offs].value;
+                inputGroup[offs].innerText = inputGroup[1 - offs].value;
                 };
             }
             /** We look for elements which have an 'clickable' attribute
@@ -641,7 +617,7 @@ function initCarousel () {
 
         e.querySelectorAll('.card-carousel--card').forEach((crd, idx) => {
             crd.onclick = function (evt) {
-                handleSdpiItemClick(crd, idx);
+                handleSdpiItemChange(crd, idx);
             };
         });
     });
