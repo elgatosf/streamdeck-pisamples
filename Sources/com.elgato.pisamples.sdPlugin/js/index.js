@@ -14,16 +14,6 @@ const MPLUGINDATA = {
 const piSamplesAction = new Action('com.elgato.pisamples.action');
 console.log('piSamplesAction', piSamplesAction);
 
-const sendToPropertyInspector = (context, payload = null) => {
-    if(typeof context != 'string') {
-        console.error('A key context is required to sendToPropertyInspector.');
-    }
-
-    $SD.send(context, Events.sendToPropertyInspector, {
-        payload,
-    });
-}
-
 piSamplesAction.onWillAppear(({context, payload}) => {
     console.log('onWillAppear', context, payload);
     if(!MCONTEXTS.includes(context)) MCONTEXTS.push(context);
@@ -40,12 +30,8 @@ piSamplesAction.onKeyUp(jsn => {
 
 piSamplesAction.onPropertyInspectorDidAppear(jsn => {
     console.log('onPropertyInspectorDidAppear', jsn.context);
-    // the action parameter is not used, but still reuqired by the SDK... we'll remove it in a future release //+++Todo
-    // $SD.sendToPropertyInspector(jsn.context, 'com.elgato.pisamples.action', {runningApps: MPLUGINDATA.runningApps});
-    sendToPropertyInspector(jsn.context, {runningApps: MPLUGINDATA.runningApps});
-
+    $SD.sendToPropertyInspector(jsn.context, {runningApps: MPLUGINDATA.runningApps});
 });
-
 
 piSamplesAction.onPropertyInspectorDidDisappear(jsn => {
     console.log('onPropertyInspectorDidDisappear', jsn.context);
@@ -137,8 +123,7 @@ $SD.onApplicationDidTerminate(({context,payload}) => {
 
 const updateRunningApps = (context) => {
     console.log('updateRunningApps', MPLUGINDATA.runningApps);
-    // $SD.sendToPropertyInspector(context, {runningApps: MPLUGINDATA.runningApps});
-    sendToPropertyInspector(context, {runningApps: MPLUGINDATA.runningApps});
+    $SD.sendToPropertyInspector(context, {runningApps: MPLUGINDATA.runningApps});
 };
 
 const updateKeyImages = (context, url) => {
