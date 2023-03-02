@@ -5,7 +5,7 @@
       "Name": "PI Samples", 
       "States": [
         {
-          "Image": "action/images/image"
+          "Image": "action/images/action"
         }
       ], 
       "Tooltip": "PI Samples", 
@@ -20,7 +20,7 @@
   "Name": "PISamples", 
   "Icon": "images/default", 
   "URL": "https://www.elgato.com/gaming/stream-deck", 
-  "Version": "1.5.0",
+  "Version": "2.0.0",
   "OS": [
     {
         "Platform": "mac", 
