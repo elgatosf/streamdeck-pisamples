@@ -43,6 +43,18 @@ piSamplesAction.onDidReceiveSettings(({context, payload}) => {
     console.log('got settings', 'key', key, 'value', value);
 });
 
+const updatePanel = ((context, inData) => {
+    console.log('updatePanel', context, inData);
+    const payload = {
+        'title': inData?.title,
+        'value': {
+            value: inData?.value,
+        },
+        icon: inData?.icon
+    };
+    $SD.setFeedback(context, payload);
+});
+
 
 // Here we receive the payload from the property inspector
 piSamplesAction.onSendToPlugin(({context, payload}) => {
@@ -50,15 +62,17 @@ piSamplesAction.onSendToPlugin(({context, payload}) => {
     if(payload && payload.hasOwnProperty('sdpi_collection')) {
         const {key, value} = payload.sdpi_collection;
         if(key === 'your_canvas') {
+            updatePanel(context, {icon:value, title:'canvas'});
             $SD.setImage(context, value);
         } else if(key === 'elgfilepicker') {
             if(value && typeof value === 'string' && ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'].some(e => value.endsWith(e))) {
+                updatePanel(context, {icon:value, title: 'file'});
                 $SD.setImage(context, value);
             } else {
                 console.warn('Invalid image', value);
             }
-
         } else {
+            updatePanel(context, {title: key, value: value});
             console.warn('Unknown key', key, 'with value', value);
         }
     }
@@ -84,7 +98,7 @@ $SD.onApplicationDidLaunch((jsn) => {
     const img = `images/${payload.application}.png`;
     // try to load it
     Utils.loadImagePromise(img).then(results => {
-        MCONTEXTS.forEach(c => updateKeyImages(c, img));
+        MCONTEXTS.forEach(c => updateKeyImages(c, img, app, 'launched'));
     });
     // add the monitored app to our running apps list
     if(!MPLUGINDATA.runningApps.includes(app)) {MPLUGINDATA.runningApps.push(app);};
@@ -108,10 +122,10 @@ $SD.onApplicationDidTerminate(({context,payload}) => {
         // if successfully loaded, merge them
         Utils.mergeImages(images).then(b64 => {
             // and update the key images
-            MCONTEXTS.forEach(c => updateKeyImages(c, b64));
+            MCONTEXTS.forEach(c => updateKeyImages(c, b64, app, 'will end'));
             setTimeout(() => {
                 // after 1.5 seconds, reset the key images
-                MCONTEXTS.forEach(c => updateKeyImages(c, `images/default.svg`));
+                MCONTEXTS.forEach(c => updateKeyImages(c, `images/default.svg`, app, 'quit'));
             }, 1500);
         });
     });
@@ -126,9 +140,10 @@ const updateRunningApps = (context) => {
     $SD.sendToPropertyInspector(context, {runningApps: MPLUGINDATA.runningApps});
 };
 
-const updateKeyImages = (context, url) => {
+const updateKeyImages = (context, icon, title='', value='') => {
     // console.log('updateKeyImages', context);
-    $SD.setImage(context, url);
+    updatePanel(context, {icon, title, value});
+    $SD.setImage(context, icon);
 };
 
 
