@@ -16,6 +16,9 @@
 
 ![](screenshot.png)
 
+# Changes
+- Version 2.0.0 adds the latest libraries and introduces `SVG`images and `TABS
+
 
 - allows easy drag and drop of it's elements to your HTML-editor; just drag the item to your Property Inspector's .html file.
   
