@@ -19,7 +19,7 @@
 # Changes
 - Version 2.0.0 adds the latest libraries and introduces `SVG`images and `TABS
 
-
+* Drag and drop
 - allows easy drag and drop of it's elements to your HTML-editor; just drag the item to your Property Inspector's .html file.
   
 https://user-images.githubusercontent.com/80752/153376059-8897cc53-67a5-4cd0-8e47-3f966c9d9c68.mp4
