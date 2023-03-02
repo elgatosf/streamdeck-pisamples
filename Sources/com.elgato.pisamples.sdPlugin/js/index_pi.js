@@ -128,6 +128,17 @@ function clickTab(clickedTab) {
 }
 
 /**
+ * Here's a way to adjust the padding of the tabs without hacking into the CSS
+ * Best to call it before the $PI is connected to avoid a visible movement of the tabs
+ */
+
+function adjustTabPadding(paddingInPixels = '12px') {
+    document.body.style.setProperty('--sdpi-tab-padding-horizontal', paddingInPixels);
+}
+
+adjustTabPadding('8px');
+
+/**
  * DEMO
  * ----
  * 

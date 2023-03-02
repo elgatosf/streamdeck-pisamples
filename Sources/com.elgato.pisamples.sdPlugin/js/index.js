@@ -111,7 +111,7 @@ $SD.onApplicationDidTerminate(({context,payload}) => {
             MCONTEXTS.forEach(c => updateKeyImages(c, b64));
             setTimeout(() => {
                 // after 1.5 seconds, reset the key images
-                MCONTEXTS.forEach(c => updateKeyImages(c, `images/default.png`));
+                MCONTEXTS.forEach(c => updateKeyImages(c, `images/default.svg`));
             }, 1500);
         });
     });
