@@ -183,7 +183,8 @@ function prepareDOMElements(baseElement) {
                 'TABLE',
                 'METER',
                 'PROGRESS',
-                'CANVAS'
+                'CANVAS',
+                'DATALIST'
             ].includes(el.tagName);
             const evt = elementsToClick ? 'onclick' : onchangeevt || 'onchange';
 
@@ -272,8 +273,8 @@ function handleSdpiItemChange(e, idx) {
      * clickable label.
      */
 
-    if(e.tagName === 'SPAN') {
-        const inp = e.parentNode.querySelector('input');
+    if(e.tagName === 'SPAN' || e.tagName === 'OPTION') {
+        const inp = e.tagName === 'OPTION' ? e.closest('.sdpi-item-value')?.querySelector('input') : e.parentNode.querySelector('input');
         var tmpValue;
 
         // if there's no attribute set for the span, try to see, if there's a value in the textContent
@@ -287,6 +288,7 @@ function handleSdpiItemChange(e, idx) {
         } else {
             tmpValue = Number(e.getAttribute('value'));
         }
+        console.log("clicked!!!!", e, inp, tmpValue, e.closest('.sdpi-item-value'), e.closest('input'));
 
         if(inp && tmpValue !== undefined) {
             inp.value = tmpValue;
