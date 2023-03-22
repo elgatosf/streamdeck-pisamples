@@ -37,7 +37,7 @@
     "Name": "PISamples",
     "Icon": "images/default",
     "URL": "https://www.elgato.com/gaming/stream-deck",
-    "Version": "2.0.0",
+    "Version": "2.0.3.84",
     "OS": [
         {
             "Platform": "mac",

@@ -13,12 +13,12 @@
   <style>
     /* COLOR/BRIGHTNESS sliders */
     /* overwrite styles of color and greyscale sliders to fit your needs */
-    input[type="range"].overwritten-by-css::-webkit-slider-runnable-track {
-      background-color: yellow;
-      background-image: linear-gradient(to right, blue, rgba(255, 0, 0, 0));
-    }
+    /* input[type="range"]::-webkit-slider-runnable-track {
+            background-color: yellow;
+        } */
+
     .sdpi-item {
-        -webkit-user-drag: element;
+      -webkit-user-drag: element;
     }
   </style>
 
@@ -37,6 +37,7 @@
     </div>
     <hr class="tab-separator" />
     <div id="tab1" class="tab-container">
+
       <div class="sdpi-item" id="your_name">
         <div class="sdpi-item-label">Name</div>
         <input class="sdpi-item-value" onchange="changed()" type="text" id="mynameinput" value="">
@@ -60,6 +61,20 @@
       <div class="sdpi-item" id="anumber">
         <div class="sdpi-item-label">Number</div>
         <input class="sdpi-item-value" id="mynumber" inputmode="numeric" pattern="[0-9]*" type="number" name="creditcard">
+      </div>
+
+      <div class="sdpi-item" id="adatalist">
+        <div class="sdpi-item-label">Cities</div>
+        <input class="sdpi-item-value" type="text" name="team" id="city" list="cities">
+        <datalist id="cities">
+          <option>Munich</option>
+          <option>San Francisco</option>
+          <option>Tokyo</option>
+          <option>Bejing</option>
+          <option>Sydney</option>
+          <option>Sao Paolo</option>
+          <option>Toronto</option>
+        </datalist>
       </div>
     </div>
     <div id="tab2">
@@ -236,7 +251,7 @@
     </div>
 
     <div type="range" class="sdpi-item" id="range_with_meters">
-      <div class="sdpi-item-label">Range (with label)</div>
+      <div class="sdpi-item-label">Range (+label)</div>
       <div class="sdpi-item-value">
         <span class="clickable" value=0>0</span>
         <input class="floating-tooltip" data-suffix="K" type="range" min="5" max="100" value=74>
@@ -245,15 +260,33 @@
     </div>
 
     <div type="range" class="sdpi-item" id="range_with_datalist">
-      <div class="sdpi-item-label">Range (with datalist)</div>
-      <div class="sdpi-item-value">
-        <span class="clickable" value="0">0</span>
+      <div class="sdpi-item-label">Range (+datalist)</div>
+      <div class="sdpi-item-value datalist">
         <input type="range" min="0" max="100" step="25" value="75" list="steplist">
         <datalist id="steplist">
-          <option>25</option>
-          <option>50</option>
-          <option>75</option>
+          <option class="clickable" value="0">0</option>
+          <option class="clickable" value="25">25</option>
+          <option class="clickable" value="50">50</option>
+          <option class="clickable" value="75">75</option>
+          <option class="clickable" value="100">100</option>
         </datalist>
+      </div>
+    </div>
+
+    <div type="range" class="sdpi-item" id="range_with_datalist">
+      <div class="sdpi-item-label">Range+ (+datalist)</div>
+      <div class="sdpi-item-value">
+        <span class="clickable" value="0">0</span>
+        <div class="range-container"> <!-- if we want to use min/max labels AND datalists, we must group ranges/datalist in their own container-->
+          <input type="range" min="0" max="100" step="25" value="75" list="steplist2">
+          <datalist id="steplist2">
+            <option class="clickable" value="0">0</option>
+            <option class="clickable" value="25">25</option>
+            <option class="clickable" value="50">50</option>
+            <option class="clickable" value="75">75</option>
+            <option class="clickable" value="100">100</option>
+          </datalist>
+        </div>
         <span class="clickable" value="100">100</span>
       </div>
     </div>
@@ -262,18 +295,36 @@
 
     <div class="sdpi-item" type="range" id="myLightsID">
       <div class="sdpi-item-label">Brightness</div>
-      <div class="sdpi-item-value">
+      <div class="sdpi-item-value" type="range">
         <span class="icon-darker" value="3"></span>
-        <input id="2BCSknf2ID" type="range" class="colorbrightness" max-width="" :176px="" min="3" max="100" value="60">
+        <input id="2BCSknf2ID" type="range" class="colorbrightness grayscale" max-width="" :176px="" min="3" max="100" value="60" />
         <span class="icon-brighter" value="100"></span>
         <label for="2BCSknf2ID" class="rangeLabel percent">60</label>
+      </div>
+    </div>
+
+    <div class="sdpi-item" type="range" id="myLightsWithDataList">
+      <div class="sdpi-item-label">Brightness (+ datalist)</div>
+      <div class="sdpi-item-value" type="range"> <!-- if we want to use min/max labels AND datalists, we must group ranges/datalist in their own container-->
+        <span class="icon-darker" value="3"></span>
+        <div class="range-container">
+          <input id="mlwdl1" type="range" class="colorbrightness" max-width="" :176px="" min="3" max="100" value="60" list="brightnesses" />
+          <datalist id="brightnesses">
+            <option class="clickable" value="0">0</option>
+            <option class="clickable" value="25">25</option>
+            <option class="clickable" value="50">50</option>
+            <option class="clickable" value="75">75</option>
+            <option class="clickable" value="100">100</option>
+          </datalist>
+        </div>
+        <span class="icon-brighter" value="100"></span>
       </div>
     </div>
 
     <div type="range" class="sdpi-item">
       <div class="sdpi-item-label">Color</div>
       <div class="sdpi-item-value">
-        <input id="lights.brightness" class="floating-tooltip colorbrightness overwritten-by-css" data-suffix="%" type="range" min="0" max="100" value="100" id="UzYcgeTM">
+        <input id="lights.brightness" class="floating-tooltip colorbrightness" data-suffix="%" type="range" min="0" max="100" value="100" id="UzYcgeTM">
       </div>
     </div>
 
@@ -308,7 +359,7 @@
     <hr>
 
     <div class="sdpi-item" type="meter" id="meter_with_labels">
-      <div class="sdpi-item-label">Meter (with labels)</div>
+      <div class="sdpi-item-label">Meter (+ labels)</div>
       <div class="sdpi-item-value sdpi-item-group" id="metergroup">
         <div class="sdpi-item-child">
           <span for="meter1">0</span>
@@ -357,7 +408,7 @@
     <hr>
 
     <div class="sdpi-item" type="progress" id="progress_with_labels">
-      <div class="sdpi-item-label">Progress (with labels)</div>
+      <div class="sdpi-item-label">Progress (+ labels)</div>
       <div class="sdpi-item-value sdpi-item-group" id="progressgroup">
         <div class="sdpi-item-child">
           <span for="progress1">0</span>
@@ -414,7 +465,7 @@
     <hr>
 
     <div type="list" class="sdpi-item list" id="orderedListContainer">
-      <div class="sdpi-item-label">List (multi select)</div>
+      <div class="sdpi-item-label">List </div>
       <ol class="sdpi-item-value multi-select" id="orderedList2" type="lower-alpha">
         <li>Coke</li>
         <li>Sprite</li>
@@ -500,39 +551,39 @@
 
     <div class="sdpi-item" id="date">
       <div class="sdpi-item-label">Date</div>
-      <input class="sdpi-item-value" type="date" value="2019-01-15">
+      <input class="sdpi-item-value" type="date" value="2023-01-15">
     </div>
 
     <div class="sdpi-item" id="daterange">
       <div class="sdpi-item-label">Date range</div>
-      <input class="sdpi-item-value" id="when" name="when" type="date" min="2018-12-01" max="2019-02-01" value="2018-12-31">
+      <input class="sdpi-item-value" id="when" name="when" type="date" min="2022-12-01" max="2023-02-01" value="2022-12-31">
     </div>
 
     <div class="sdpi-item" id="month">
       <div class="sdpi-item-label">Month</div>
-      <input class="sdpi-item-value" type="month" value="2019-01">
+      <input class="sdpi-item-value" type="month" value="2023-01">
     </div>
 
     <div class="sdpi-item" id="month">
-      <div class="sdpi-item-label">Month (with list)</div>
-      <input class="sdpi-item-value" type="month" value="2019-02" list="months">
+      <div class="sdpi-item-label">Month (+ datalist)</div>
+      <input class="sdpi-item-value" type="month" value="2023-02" list="months">
       <datalist id="months">
         <option label="Neil on the moon">1967-07</option>
         <option label="First month of this century">2000-01</option>
         <option label="Last month of last century">1999-12</option>
-        <option label="Last month of 2019">2019-12</option>
+        <option label="Last month of 2023">2023-12</option>
       </datalist>
     </div>
 
     <div class="sdpi-item" id="week">
       <div class="sdpi-item-label">Week</div>
-      <input class="sdpi-item-value" type="week" value="2019-W02" list="weeks">
+      <input class="sdpi-item-value" type="week" value="2023-W02" list="weeks">
       <datalist id="weeks">
-        <option label="First week of 2019">2019-W01</option>
-        <option label="Second week of 2019">2019-W02</option>
-        <option label="Fifth week of 2019">2019-W05</option>
-        <option label="24th week of 2019">2019-W24</option>
-        <option label="Last week of 2019">2019-W52</option>
+        <option label="First week of 2023">2023-W01</option>
+        <option label="Second week of 2023">2023-W02</option>
+        <option label="Fifth week of 2023">2023-W05</option>
+        <option label="24th week of 2023">2023-W24</option>
+        <option label="Last week of 2023">2023-W52</option>
       </datalist>
     </div>
 
@@ -544,7 +595,7 @@
 
     <div class="sdpi-item" id="localdatetime">
       <div class="sdpi-item-label">Datetime local</div>
-      <input class="sdpi-item-value" type="datetime-local" value="2019-01-06T12:22">
+      <input class="sdpi-item-value" type="datetime-local" value="2023-01-06T12:22">
     </div>
 
 
@@ -610,10 +661,9 @@
       </details>
     </div>
 
-
     <div class="sdpi-heading">DETAILS</div>
 
-    <div class="sdpi-item">
+    <div class="sdpi-item details">
       <div class="sdpi-item-label">Details</div>
       <details class="sdpi-item-value">
         <summary>Wrapped Details</summary>

@@ -17,7 +17,32 @@
 ![](screenshot.png)
 
 # Changes
-- Version 2.0.0 adds the latest libraries and introduces `SVG`images and `TABS
+## 2.0.3
+* line-heights are now set to `normal` (from 26px) and alignment of `sdpi-label/sdpi-value` is now done by using `first baseline`.
+* slight adjustment for `sdpi-label/sdpi-value` in `colors` and `textarea` elements.
+* details-markers are now showing properly again.
+* adjusted the carousel-cards to fit the PI's background color.
+* 
+## 2.0.2
+* groupings for range-sliders with datalist improved (thanks to @trevligaspel)
+* slight adjustment to the right scrollbar-thumb (was cut off by 1px in 6.1)
+* fixed scrolling `list` containers starting at a wrong offset (thx @Toby)
+* improved alignment on `details` tag. It now aligns based on the first line's baseline.
+* tbd: documentation of the changes
+* 
+## 2.0.1
+- added some CSS to improve datalist-support on ranges
+- data-list options on range-sliders are now clickable
+- improved support for colored and grayscale ranges
+- added support for ControlCenter-style colored and grayscale sliders
+- added datalist support for text inputs
+- re-introduced support for input types: date, month, week, time and date-time
+- added datalist support for date inputs
+- added better alignment of details-labels
+- minor cleanup & fixes
+- 
+## 2.0.0 
+- added the latest libraries and introduces `SVG`images and `TABS`
 
 
 # Drag and drop
