@@ -1,6 +1,6 @@
-/// <reference path="libs/js/stream-deck.js" />
-/// <reference path="libs/js/action.js" />
-/// <reference path="libs/js/utils.js" />
+/// <reference path="../libs/js/stream-deck.js" />
+/// <reference path="../libs/js/action.js" />
+/// <reference path="../libs/js/utils.js" />
 
 /* GLOBALS */
 
@@ -62,11 +62,11 @@ piSamplesAction.onSendToPlugin(({context, payload}) => {
     if(payload && payload.hasOwnProperty('sdpi_collection')) {
         const {key, value} = payload.sdpi_collection;
         if(key === 'your_canvas') {
-            updatePanel(context, {icon:value, title:'canvas'});
+            updatePanel(context, {icon: value, title: 'canvas'});
             $SD.setImage(context, value);
         } else if(key === 'elgfilepicker') {
             if(value && typeof value === 'string' && ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'].some(e => value.endsWith(e))) {
-                updatePanel(context, {icon:value, title: 'file'});
+                updatePanel(context, {icon: value, title: 'file'});
                 $SD.setImage(context, value);
             } else {
                 console.warn('Invalid image', value);
@@ -106,7 +106,7 @@ $SD.onApplicationDidLaunch((jsn) => {
     MCONTEXTS.forEach(updateRunningApps);
 });
 
-$SD.onApplicationDidTerminate(({context,payload}) => {
+$SD.onApplicationDidTerminate(({context, payload}) => {
     console.log('onApplicationDidTerminate', payload, payload.application);
     // our monitored app settings (in manifest.json) are case-sensitive
     // so we need to capitalize the app name to match
@@ -140,7 +140,7 @@ const updateRunningApps = (context) => {
     $SD.sendToPropertyInspector(context, {runningApps: MPLUGINDATA.runningApps});
 };
 
-const updateKeyImages = (context, icon, title='', value='') => {
+const updateKeyImages = (context, icon, title = '', value = '') => {
     // console.log('updateKeyImages', context);
     updatePanel(context, {icon, title, value});
     $SD.setImage(context, icon);
@@ -193,5 +193,3 @@ Utils.mergeImages = (images = [], options = {width: 144, height: 144, format: 'i
         return canvas.toDataURL(options.format, options.quality);
     }));
 });
-
-
