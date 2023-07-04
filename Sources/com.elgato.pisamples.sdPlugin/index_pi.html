@@ -13,12 +13,23 @@
   <style>
     /* COLOR/BRIGHTNESS sliders */
     /* overwrite styles of color and greyscale sliders to fit your needs */
-    /* input[type="range"]::-webkit-slider-runnable-track {
-            background-color: yellow;
+    /* input[type="range"].colorbrightness::-webkit-slider-runnable-track, 
+    input[type="range"].colortemperature::-webkit-slider-runnable-track,
+    input[type="range"]::-webkit-slider-runnable-track {
+            background-image: linear-gradient(to right, #94d0ec, blue)
         } */
 
     .sdpi-item {
       -webkit-user-drag: element;
+    }
+
+    .spacer {
+      width: 100%;
+      height: 400px;
+    }
+
+    .sdpi-item[type='range'] {
+      align-items: center;
     }
   </style>
 
@@ -273,8 +284,8 @@
       </div>
     </div>
 
-    <div type="range" class="sdpi-item" id="range_with_datalist">
-      <div class="sdpi-item-label">Range+ (+datalist)</div>
+    <div type="range" class="sdpi-item" id="range_with_datalist_and_labels">
+      <div class="sdpi-item-label">Range+ (+dl +lbls)</div>
       <div class="sdpi-item-value">
         <span class="clickable" value="0">0</span>
         <div class="range-container"> <!-- if we want to use min/max labels AND datalists, we must group ranges/datalist in their own container-->
@@ -296,6 +307,14 @@
     <div class="sdpi-item" type="range" id="myLightsID">
       <div class="sdpi-item-label">Brightness</div>
       <div class="sdpi-item-value" type="range">
+        <input id="2BCSknf2ID" type="range" class="colorbrightness grayscale" max-width="" :176px="" min="3" max="100" value="60" />
+        <label for="2BCSknf2ID" class="rangeLabel percent">60</label>
+      </div>
+    </div>
+
+    <div class="sdpi-item" type="range" id="myLightsID">
+      <div class="sdpi-item-label">Brightness (+lbl)</div>
+      <div class="sdpi-item-value" type="range">
         <span class="icon-darker" value="3"></span>
         <input id="2BCSknf2ID" type="range" class="colorbrightness grayscale" max-width="" :176px="" min="3" max="100" value="60" />
         <span class="icon-brighter" value="100"></span>
@@ -303,14 +322,35 @@
       </div>
     </div>
 
-    <div class="sdpi-item" type="range" id="myLightsWithDataList">
-      <div class="sdpi-item-label">Brightness (+ datalist)</div>
-      <div class="sdpi-item-value" type="range"> <!-- if we want to use min/max labels AND datalists, we must group ranges/datalist in their own container-->
-        <span class="icon-darker" value="3"></span>
+    <div type="range" class="sdpi-item">
+      <div class="sdpi-item-label">Color</div>
+      <div class="sdpi-item-value">
+        <input id="lights.color" class="floating-tooltip colorbrightness" data-suffix="%" type="range" min="0" max="100" value="100">
+      </div>
+    </div>
+
+    <div class="sdpi-item" type="range" id="myLightsWithDataList" style="align-items: center">
+      <div class="sdpi-item-label">Color (+ datalist)</div>
+      <div class="sdpi-item-value datalist" type="range"> <!-- if we want to use min/max labels AND datalists, we must group ranges/datalist in their own container-->
+        <input id="mlwdl1" type="range" class="colorbrightness" max-width="" :176px="" min="3" max="100" value="60" list="brightnesses" />
+        <datalist id="brightnesses">
+          <option class="clickable" value="0">0</option>
+          <option class="clickable" value="25">25</option>
+          <option class="clickable" value="50">50</option>
+          <option class="clickable" value="75">75</option>
+          <option class="clickable" value="100">100</option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="sdpi-item" type="range" id="myLightsWithDataList" style="align-items: center">
+      <div class="sdpi-item-label">Color (+ dl + lbs)</div>
+      <div class="sdpi-item-value">
+        <span class="icon-darker" value="0"></span>
         <div class="range-container">
           <input id="mlwdl1" type="range" class="colorbrightness" max-width="" :176px="" min="3" max="100" value="60" list="brightnesses" />
           <datalist id="brightnesses">
-            <option class="clickable" value="0">0</option>
+            <option class="clickable" value="3">0</option>
             <option class="clickable" value="25">25</option>
             <option class="clickable" value="50">50</option>
             <option class="clickable" value="75">75</option>
@@ -320,14 +360,6 @@
         <span class="icon-brighter" value="100"></span>
       </div>
     </div>
-
-    <div type="range" class="sdpi-item">
-      <div class="sdpi-item-label">Color</div>
-      <div class="sdpi-item-value">
-        <input id="lights.brightness" class="floating-tooltip colorbrightness" data-suffix="%" type="range" min="0" max="100" value="100" id="UzYcgeTM">
-      </div>
-    </div>
-
 
     <div class="sdpi-heading">Meters</div>
 

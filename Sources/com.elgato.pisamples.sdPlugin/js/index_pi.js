@@ -116,7 +116,8 @@ function clickTab(clickedTab) {
     const allTabs = Array.from(document.querySelectorAll('.tab'));
     allTabs.forEach((el, i) => el.classList.remove('selected'));
     clickedTab.classList.add('selected');
-    activeTab = clickedTab.dataset?.target;
+    // activeTab = clickedTab.dataset?.target; 
+
     allTabs.forEach((el, i) => {
         if(el.dataset.target) {
             const t = document.querySelector(el.dataset.target);
