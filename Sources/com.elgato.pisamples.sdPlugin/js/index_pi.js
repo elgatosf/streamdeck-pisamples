@@ -633,7 +633,7 @@ function prettify(node, level) {
 }
 
 function rangeToPercent(value, min, max) {
-    return (value / (max - min));
+    return (value - min) / (max - min);
 };
 function initToolTips() {
     const tooltip = document.querySelector('.sdpi-info-label');
