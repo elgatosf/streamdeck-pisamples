@@ -675,3 +675,25 @@ function initToolTip(element, tooltip) {
 
 
 activateTabs();
+
+
+const quickProxy = (obj, onChange) => {
+    return new Proxy(obj, {
+      set(target, property, value, receiver) {
+        const oldValue = target[property];
+        target[property] = value;
+  
+        // Call the onChange callback whenever a property is updated
+        if (onChange && value !== oldValue) {
+          onChange(property, value, oldValue);
+        }
+  
+        return true;
+      },
+    });
+  }
+  
+  // Example usage
+//   const user = quickProxy({ name: 'John', age: 30 }, (property, value, oldValue) => {
+//     console.log(`Property "${property}" changed from "${oldValue}" to "${value}"`);
+//   });
