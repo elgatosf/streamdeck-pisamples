@@ -1,6 +1,9 @@
-
-`PISamples` is a sample plugin demonstrating the [Stream Deck SDK](https://developer.elgato.com/documentation/stream-deck/).
-
+> [!IMPORTANT]  
+> The new [Stream Deck SDK](https://github.com/elgatosf/streamdeck) is now available.
+>
+> For more information on using our legacy PISamples, please refer to our previous [JavaScript SDK](https://github.com/elgatosf/streamdeck-javascript-sdk/tree/main/css).
+>
+> This repository has been marked as deprecated, and will soon be deleted. If you have any questions, please contact us via [maker@elgato.com](maker@elgato.com), or join our [Makertplace Makers](https://discord.gg/GehBUcu627) Discord community.
 
 # Description
 
